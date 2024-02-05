@@ -1,10 +1,8 @@
 <template>
-	<div>
-		<h1 class="p-1 text-yellow-800 bg-purple-500">Index page</h1>
-		<NuxtLayout>
-			<NuxtPage/>
-		</NuxtLayout>
-	</div>
+	<NuxtLayout>
+		<h1 class="prose-1">Game Selector</h1>
+		<p>Vote on your favorite games to be chosen for team play at the end of the month</p>
+	</NuxtLayout>
 </template>
 
 <script setup lang="ts">

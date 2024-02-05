@@ -15,8 +15,6 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@nuxtjs/google-fonts',
     '@nuxt/test-utils/module'
-    // https://google-fonts.nuxtjs.org/getting-started/setup
   ]
 })
