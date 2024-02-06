@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "test:unit": "vitest --environment happy-dom", 
+    "test:unit": "vitest --environment happy-dom",
     "coverage": "vitest run --coverage",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -22,5 +22,8 @@
     "vitest": "^1.2.2",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "date-fns": "^3.3.1"
   }
 }

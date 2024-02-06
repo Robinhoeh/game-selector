@@ -15,6 +15,6 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@nuxt/test-utils/module'
+    '@nuxt/test-utils/module',
   ]
 })

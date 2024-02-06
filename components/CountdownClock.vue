@@ -20,7 +20,8 @@
 </template>
 
 <script setup lang="ts">
-
+const date = new Date('2022-01-01').getTime();
+console.log(date)
 </script>
 
 <style scoped>
