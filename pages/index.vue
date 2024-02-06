@@ -2,26 +2,9 @@
 	<NuxtLayout>
 		<h1 class="prose-1">Game Selector</h1>
 		<p>Vote on your favorite games to be chosen for team play at the end of the month</p>
-		<section class="py-3 mb-6">
+		<section class="py-3 mb-6 mt-7">
 			<h3>Countdown to end of month</h3>
-			<div class="flex justify-around">
-				<div class="flex flex-col items-center">
-					<p>Days</p>
-					<p>00</p>
-				</div>
-				<div class="flex flex-col items-center">
-					<p>Hours</p>
-					<p>00</p>
-				</div>
-				<div class="flex flex-col items-center">
-					<p>Minutes</p>
-					<p>00</p>
-				</div>
-				<div class="flex flex-col items-center">
-					<p>Seconds</p>
-					<p>00</p>
-				</div>
-			</div>
+			<CountdownClock />
 		</section>
 		<section class="py-3 mb-6">
 			<div class="flex justify-around">

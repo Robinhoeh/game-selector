@@ -1,0 +1,28 @@
+<template>
+	<div class="flex justify-around">
+		<div class="flex flex-col items-center">
+			<p>Days</p>
+			<p>00</p>
+		</div>
+		<div class="flex flex-col items-center">
+			<p>Hours</p>
+			<p>00</p>
+		</div>
+		<div class="flex flex-col items-center">
+			<p>Minutes</p>
+			<p>00</p>
+		</div>
+		<div class="flex flex-col items-center">
+			<p>Seconds</p>
+			<p>00</p>
+		</div>
+	</div>
+</template>
+
+<script setup lang="ts">
+
+</script>
+
+<style scoped>
+
+</style>
