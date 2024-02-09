@@ -4,6 +4,7 @@ import { enCA } from "date-fns/locale"
 import { render, screen, fireEvent } from "@testing-library/vue"
 import  countdownClock from "./CountdownClock.vue"
 
+
 describe("CountdownClock", () => {
 	test("should display the countdown clock template", async() => {
 		render(countdownClock)
@@ -28,11 +29,23 @@ describe("CountdownClock", () => {
 		render(countdownClock)
 		const date = new Date()
 		const formattedDate = format(date, 'dd, hh, :mm, :ss', { locale: enCA })
-		console.log(formattedDate)
-		})
+		expect(formattedDate).toEqual(format(date, 'dd, hh, :mm, :ss', { locale: enCA }))
+	})
+
+	test("Add the time and date stamps to each clock section", async () => {
+		render(countdownClock)
+		const remainingDays = format(new Date, 'dd')
+		const remainingHours = format(new Date, 'hh')
+		const remainingMinutes = format(new Date, ':mm')
+		const remainingSeconds = format(new Date, ':ss')
+		expect(remainingDays).toContain(format(new Date, 'dd'))
+		expect(remainingHours).toContain(format(new Date, 'hh'))
+		expect(remainingMinutes).toContain(format(new Date, ':mm'))
+		expect(remainingSeconds).toContain(format(new Date, ':ss'))
+	})
 })
 
-// Display the current time in Toronto in the expcted format
+
 // Target countdown date is last day of each month
 // Countdown will reset to next month after reaching 0
 // Countdown will update every second
