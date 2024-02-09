@@ -20,8 +20,11 @@
 </template>
 
 <script setup lang="ts">
-const date = new Date('2022-01-01').getTime();
-console.log(date)
+import { format } from 'date-fns'
+import { enCA } from 'date-fns/locale'
+const date = new Date()
+const formattedDate = format(date, 'dd, hh, :mm, :ss', { locale: enCA })
+console.log(formattedDate)
 </script>
 
 <style scoped>

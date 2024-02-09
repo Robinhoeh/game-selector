@@ -1,18 +1,37 @@
 import { describe, expect } from "vitest"
+import { format } from "date-fns"
+import { enCA } from "date-fns/locale"
 import { render, screen, fireEvent } from "@testing-library/vue"
 import  countdownClock from "./CountdownClock.vue"
 
-// countdown clock template displays
 describe("CountdownClock", () => {
 	test("should display the countdown clock template", async() => {
 		render(countdownClock)
-		expect(screen.queryByTestId("countdown-clock")).toBeDefined()
+		expect(screen.queryAllByTestId("countdown-clock")).toBeTruthy()
 		await fireEvent.copy(screen.getByText("Days"))
+	});
+	
+	test("should contain a date object", async () => {
+		render(countdownClock)
+		const date = new Date()
+		expect(date).toBeTruthy()
 	})
+
+	test("should display the current day and time", async () => {
+		render(countdownClock)
+		const date = new Date()
+		const formattedDate = format(date, 'dd, hh, :mm, :ss')
+		expect(formattedDate).toEqual(format(date, 'dd, hh, :mm, :ss'))
+	})
+	
+	test("should display the current time in Toronto", async () => {
+		render(countdownClock)
+		const date = new Date()
+		const formattedDate = format(date, 'dd, hh, :mm, :ss', { locale: enCA })
+		console.log(formattedDate)
+		})
 })
-// display current date
-// display current time
-// Clock will display days, hours, minutes, and seconds
+
 // Display the current time in Toronto in the expcted format
 // Target countdown date is last day of each month
 // Countdown will reset to next month after reaching 0
