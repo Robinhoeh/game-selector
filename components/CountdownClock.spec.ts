@@ -1,18 +1,19 @@
-import { describe } from "vitest"
-import { CountdownClock } from "./CountdownClock.vue"
+import { describe, expect } from "vitest"
+import { render, screen, fireEvent } from "@testing-library/vue"
+import  countdownClock from "./CountdownClock.vue"
 
-// Display the current time in Toronto in the expcted format
-describe('"CountdownClock", () => {
-	test("should display the countdown clock template", () => {
-		const { CountdownClock } = require("./CountdownClock.vue")
-		const wrapper = shallowMount(CountdownClock)
-		expect(wrapper.html()).toMatchSnapshot()
+// countdown clock template displays
+describe("CountdownClock", () => {
+	test("should display the countdown clock template", async() => {
+		render(countdownClock)
+		expect(screen.queryByTestId("countdown-clock")).toBeDefined()
+		await fireEvent.copy(screen.getByText("Days"))
 	})
 })
-// countdown clock template displays
 // display current date
 // display current time
 // Clock will display days, hours, minutes, and seconds
+// Display the current time in Toronto in the expcted format
 // Target countdown date is last day of each month
 // Countdown will reset to next month after reaching 0
 // Countdown will update every second

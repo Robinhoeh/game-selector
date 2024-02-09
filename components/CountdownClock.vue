@@ -1,5 +1,5 @@
 <template>
-	<div class="flex justify-around">
+	<div class="flex justify-around" data-test-id="countdown-clock">
 		<div class="flex flex-col items-center">
 			<p>Days</p>
 			<p>00</p>
