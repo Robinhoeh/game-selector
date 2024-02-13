@@ -47,6 +47,8 @@ describe("CountdownClock", () => {
 
 	test("Ensure clock runs in real time and displays", () => {
 		const time = () => {
+			// TODO: how to do reference local data from a component
+			// TODO: What is the best way to test a setInterval function
 			let remainingDays = format(new Date, 'dd')
 			let remainingHours = format(new Date, 'hh')
 			let remainingMinutes = format(new Date, ':mm')
@@ -55,14 +57,13 @@ describe("CountdownClock", () => {
 			let countdown = remainingDays + remainingHours + remainingMinutes + remainingSeconds
 			return countdown
 		}
-		setInterval(() => {
-			time()
-		}, 1000)
+		// setInterval(() => {
+		// 	time()
+		// }, 1000)
 	})
 })
 
 
-// 
 // Target countdown date is last day of each month
 // Countdown will reset to next month after reaching 0
 // Countdown will update every second

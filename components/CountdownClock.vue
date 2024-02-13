@@ -23,7 +23,7 @@
 import { format } from 'date-fns'
 import { enCA } from 'date-fns/locale'
 const date = new Date()
-let formattedDate = format(date, 'dd, hh, :mm, :ss', { locale: enCA })
+// let formattedDate = format(date, 'dd, hh, :mm, :ss', { locale: enCA })
 let remainingDays = ref(format(new Date, 'dd'))
 let remainingHours = ref(format(new Date, 'hh'))
 let remainingMinutes = ref(format(new Date, ':mm'))
