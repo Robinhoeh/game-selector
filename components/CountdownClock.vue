@@ -20,11 +20,16 @@
 </template>
 
 <script setup lang="ts">
-import { format } from 'date-fns'
+import { format, getDaysInMonth } from 'date-fns'
 import { enCA } from 'date-fns/locale'
 const date = new Date()
 // let formattedDate = format(date, 'dd, hh, :mm, :ss', { locale: enCA })
-let remainingDays = ref(format(new Date, 'dd'))
+// const left = computed(() => {
+// 	const daysInMonth = getDaysInMonth(date)
+// 	const todaysDate = format(date, 'dd')
+// 	return remainingDays.value = format(daysInMonth - parseInt(todaysDate), 'dd')
+// }
+let remainingDays = ref()
 let remainingHours = ref(format(new Date, 'hh'))
 let remainingMinutes = ref(format(new Date, ':mm'))
 let remainingSeconds = ref(format(new Date, ':ss'))

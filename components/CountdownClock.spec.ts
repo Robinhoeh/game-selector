@@ -1,16 +1,17 @@
 import { describe, expect } from "vitest"
-import { format } from "date-fns"
+import { format, getDaysInMonth, hoursToSeconds } from "date-fns"
 import { enCA } from "date-fns/locale"
-import { render, screen, fireEvent, rere } from "@testing-library/vue"
+import { render, screen, fireEvent } from "@testing-library/vue"
 import  CountdownClock from "./CountdownClock.vue"
 
 
 describe("CountdownClock", () => {
 	test("should display the countdown clock template", () => {
-		render(CountdownClock)
+		const { debug } = render(CountdownClock)
+		debug()
+		// render(CountdownClock)
 		expect(screen.queryAllByTestId("countdown-clock")).toBeTruthy()
 		fireEvent.copy(screen.getByText("Days"))
-
 	});
 	
 	test("should contain a date object", () => {
@@ -60,11 +61,78 @@ describe("CountdownClock", () => {
 		// setInterval(() => {
 		// 	time()
 		// }, 1000)
+		// 	`const countdown = useCountdown(’04-04-2024’)`
+
+		// `countdown.days`, `countdown.minutes` etc
+
+		// Now you can test passing a date that is 4 days in the future turns 4 days.
+
+
+		// —
+
+		// Then your component can be `<CountdownDisplay :countdown=‘countdown’ />`
+
+		// And you can check that if you pass in 4 days, 3 minutes, 20 seconds, your component renders as such.
+
+
+		// —
+
+		// Then your page would go and have a SetInterval that updates the countdown object. Or better yet, your composable itself updates within it.
+
+		// Something like
+
+		// useCountdown(’04-04-2024’, true)
 	})
+
+	test("should determine how many days Remaining in month", () => {
+		const daysInMonth = getDaysInMonth(new Date())
+		expect(daysInMonth).toStrictEqual(getDaysInMonth(new Date()))
+		const daysPassed = format(new Date(), 'dd')
+		expect(daysPassed).toStrictEqual(format(new Date(), 'dd'))
+		const remainingDays = daysInMonth - daysPassed
+		console.log(remainingDays)
+	})
+
+	test("should determine how many hours left in month", () => {
+		const daysInMonth = getDaysInMonth(new Date())
+		const hoursInDay = 24
+		const hoursInMonth = (daysInMonth * hoursInDay)
+		expect(hoursInMonth).toEqual((daysInMonth * hoursInDay))
+		const currentHour = format(new Date(), 'HH')
+		const daysPassed = format(new Date(), 'dd')
+		const remainingDays = daysInMonth - parseInt(daysPassed)
+		const hoursRemainingInMonth = (remainingDays * hoursInDay) - parseInt(currentHour)
+		console.log(hoursRemainingInMonth)
+	})
+
+	test("should determine how many minutes left in month", () => {
+		const daysInMonth = getDaysInMonth(new Date())
+		const hoursInDay = 24
+		const minutesInHour = 60
+		
+		const daysPassed = format(new Date(), 'dd')
+		const currentHour = format(new Date(), 'HH')
+		const remainingDays = daysInMonth - parseInt(daysPassed)
+		const minutesInMonth = (remainingDays * hoursInDay * minutesInHour) - parseInt(currentHour) * minutesInHour
+		console.log(minutesInMonth)
+	})
+
+	test("should determine how many seconds left in month", () => {
+		const daysInMonth = getDaysInMonth(new Date())
+		const hoursInDay = 24
+		const hoursInSeconds = hoursToSeconds(hoursInDay)
+		console.log(hoursInSeconds)
+
+		const daysPassed = format(new Date(), 'dd')
+		const currentHour = format(new Date(), 'HH')
+		const remainingDays = daysInMonth - parseInt(daysPassed)
+		const secondsRemainingInMonth = (remainingDays * hoursInDay * hoursInSeconds) - parseInt(currentHour) * hoursInSeconds
+		console.log(secondsRemainingInMonth)
+	})
+
 })
 
 
-// Target countdown date is last day of each month
 // Countdown will reset to next month after reaching 0
 // Countdown will update every second
 // Countdown will display 0 when countdown is complete
@@ -78,4 +146,3 @@ describe("CountdownClock", () => {
 // time will be displayed in 12 hour format 
 // when there is less than 24 hours remaining, the days unit will be 0
 // when there is less than 24 hours remaining, the numbers will turn red
-
