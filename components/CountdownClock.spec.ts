@@ -89,7 +89,7 @@ describe("CountdownClock", () => {
 		expect(daysInMonth).toStrictEqual(getDaysInMonth(new Date()))
 		const daysPassed = format(new Date(), 'dd')
 		expect(daysPassed).toStrictEqual(format(new Date(), 'dd'))
-		const remainingDays = daysInMonth - daysPassed
+		const remainingDays = daysInMonth - parseInt(daysPassed)
 		console.log(remainingDays)
 	})
 
@@ -131,11 +131,11 @@ describe("CountdownClock", () => {
 	})
 
 })
-
+// const now = new Date().getTime?
+// set a countdown time? timeLeft = countdownDate - now
 
 // Countdown will reset to next month after reaching 0
 // Countdown will update every second
-// Countdown will display 0 when countdown is complete
 // each unit will display two digits
 // each unit will display leading 0 when less than 10 
 // each unit will display 00 when countdown is complete 
