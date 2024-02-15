@@ -23,9 +23,9 @@
 const { displayDaysRemaining, displayRemainingHours, displayRemainingMinutes, displayRemainingSeconds} = useCountdown()
 
 let remainingDays = ref<number | string>()
-let remainingHours = ref<number>()
-let remainingMinutes = ref<number>()
-let remainingSeconds = ref<number>()
+let remainingHours = ref<number | string>()
+let remainingMinutes = ref<number | string>()
+let remainingSeconds = ref<number | string>()
 
 const displayTimeEverySecond = () => {
 	remainingDays.value = displayDaysRemaining()
