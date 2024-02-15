@@ -53,28 +53,22 @@ const displayRemainingHours = () => {
 
 const displayRemainingMinutes = () => {
 	const daysInMonth = getDaysInMonth(new Date())
-	const hoursInDay = 24
-	const minutesInHour = 60
-	
 	const daysPassed = format(new Date(), 'dd')
-	const currentHour = format(new Date(), 'HH')
 	const remainingDays = daysInMonth - parseInt(daysPassed)
-	const minutesInMonth = Math.floor((remainingDays * hoursInDay * minutesInHour) - (parseInt(currentHour) * minutesInHour))
-	return minutesInMonth
+	const minutesIndADay = 60 * 24
+	const currentMinute = format(new Date(), 'mm')
+	const minutesRemainingInMonth = minutesIndADay * remainingDays - parseInt(currentMinute)
+	return Math.round(minutesRemainingInMonth)
 }
 
 const displayRemainingSeconds = () => {
-	const now = Date.now()
-	// console.log(now)
 	const daysInMonth = getDaysInMonth(new Date())
-	const hoursInDay = 24
-	const hoursInSeconds = hoursToSeconds(hoursInDay)
-
 	const daysPassed = format(new Date(), 'dd')
-	const currentHour = format(new Date(), 'HH')
 	const remainingDays = daysInMonth - parseInt(daysPassed)
-	let secondsRemainingInMonth = Math.floor((remainingDays * hoursInDay * hoursInSeconds) - (parseInt(currentHour) * hoursInSeconds))
-	return Math.round( secondsRemainingInMonth + now / 1000  )
+	const secondsInADay = 60 * 60 * 24
+	const currentSecond = format(new Date(), 'ss')
+	const secondsRemainingInMonth = secondsInADay * remainingDays - parseInt(currentSecond)
+	return Math.round( secondsRemainingInMonth)
 }
 
 onBeforeMount(() => {

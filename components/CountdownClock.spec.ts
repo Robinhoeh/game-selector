@@ -1,5 +1,5 @@
 import { describe, expect } from "vitest"
-import { format, getDaysInMonth, hoursToSeconds } from "date-fns"
+import { format, getDaysInMonth } from "date-fns"
 import { enCA } from "date-fns/locale"
 import { render, screen, fireEvent } from "@testing-library/vue"
 import  CountdownClock from "./CountdownClock.vue"
@@ -82,6 +82,9 @@ describe("CountdownClock", () => {
 		// Something like
 
 		// useCountdown(’04-04-2024’, true)
+
+		// set the countdown daate to new date , then add time 7 days four hours - getCountDown object composable should return said date
+		// test the specific object, format
 	})
 
 	test("should determine how many days Remaining in month", () => {
@@ -107,26 +110,22 @@ describe("CountdownClock", () => {
 
 	test("should determine how many minutes left in month", () => {
 		const daysInMonth = getDaysInMonth(new Date())
-		const hoursInDay = 24
-		const minutesInHour = 60
-		
 		const daysPassed = format(new Date(), 'dd')
-		const currentHour = format(new Date(), 'HH')
 		const remainingDays = daysInMonth - parseInt(daysPassed)
-		const minutesInMonth = (remainingDays * hoursInDay * minutesInHour) - parseInt(currentHour) * minutesInHour
-		console.log(minutesInMonth)
+		const minutesIndADay = 60 * 24
+		const currentMinute = format(new Date(), 'mm')
+		const minutesRemainingInMonth = minutesIndADay * remainingDays - parseInt(currentMinute)
+
+		console.log(Math.round(minutesRemainingInMonth % 60))
 	})
 
 	test("should determine how many seconds left in month", () => {
 		const daysInMonth = getDaysInMonth(new Date())
-		const hoursInDay = 24
-		const hoursInSeconds = hoursToSeconds(hoursInDay)
-		console.log(hoursInSeconds)
-
 		const daysPassed = format(new Date(), 'dd')
-		const currentHour = format(new Date(), 'HH')
 		const remainingDays = daysInMonth - parseInt(daysPassed)
-		const secondsRemainingInMonth = (remainingDays * hoursInDay * hoursInSeconds) - parseInt(currentHour) * hoursInSeconds
+		const secondsInADay = 60 * 60 * 24
+		const currentSecond = format(new Date(), 'ss')
+		const secondsRemainingInMonth = secondsInADay * remainingDays - parseInt(currentSecond)
 		console.log(secondsRemainingInMonth)
 	})
 
