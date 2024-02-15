@@ -20,9 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { format, getDaysInMonth, hoursToSeconds } from 'date-fns'
+import { format, getDaysInMonth } from 'date-fns'
 
-let remainingDays = ref<number>()
+let remainingDays = ref<number | string>()
 let remainingHours = ref<number>()
 let remainingMinutes = ref<number>()
 let remainingSeconds = ref<number>()

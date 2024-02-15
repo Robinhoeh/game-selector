@@ -98,13 +98,12 @@ describe("CountdownClock", () => {
 
 	test("should determine how many hours left in month", () => {
 		const daysInMonth = getDaysInMonth(new Date())
-		const hoursInDay = 24
-		const hoursInMonth = (daysInMonth * hoursInDay)
-		expect(hoursInMonth).toEqual((daysInMonth * hoursInDay))
+		const hoursInMonth = (daysInMonth * 24)
+		expect(hoursInMonth).toEqual((daysInMonth * 24))
 		const currentHour = format(new Date(), 'HH')
 		const daysPassed = format(new Date(), 'dd')
 		const remainingDays = daysInMonth - parseInt(daysPassed)
-		const hoursRemainingInMonth = (remainingDays * hoursInDay) - parseInt(currentHour)
+		const hoursRemainingInMonth = (remainingDays * 24) - parseInt(currentHour)
 		console.log(hoursRemainingInMonth)
 	})
 
@@ -134,13 +133,9 @@ describe("CountdownClock", () => {
 
 // Countdown will reset to next month after reaching 0 - TBD
 
-
-
-// each unit will display 00 when countdown is complete 
 // each value will be passed to the component as a prop
 // each value will be displayed in a span element
 // each value will be displayed in a div element
-// time will reflect the current local time in Toronto
-// time will be displayed in 12 hour format 
-// when there is less than 24 hours remaining, the days unit will be 0
-// when there is less than 24 hours remaining, the numbers will turn red
+
+
+
