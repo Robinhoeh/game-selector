@@ -115,7 +115,6 @@ describe("CountdownClock", () => {
 		const minutesIndADay = 60 * 24
 		const currentMinute = format(new Date(), 'mm')
 		const minutesRemainingInMonth = minutesIndADay * remainingDays - parseInt(currentMinute)
-
 		console.log(Math.round(minutesRemainingInMonth % 60))
 	})
 
@@ -133,10 +132,10 @@ describe("CountdownClock", () => {
 // const now = new Date().getTime?
 // set a countdown time? timeLeft = countdownDate - now
 
-// Countdown will reset to next month after reaching 0
-// Countdown will update every second
-// each unit will display two digits
-// each unit will display leading 0 when less than 10 
+// Countdown will reset to next month after reaching 0 - TBD
+
+
+
 // each unit will display 00 when countdown is complete 
 // each value will be passed to the component as a prop
 // each value will be displayed in a span element
