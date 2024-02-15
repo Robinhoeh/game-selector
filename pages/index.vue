@@ -25,23 +25,7 @@
 		<section class="py-3 mb-6">
 			<h3>Add your favorite games</h3>
 			<!-- form with 3 inputs, 1 for each card -->
-			<form>
-				<div class="flex justify-around">
-					<div>
-						<label for="game1">Game 1</label>
-						<input type="text" id="game1" name="game1">
-					</div>
-					<div>
-						<label for="game2">Game 2</label>
-						<input type="text" id="game2" name="game2">
-					</div>
-					<div>
-						<label for="game3">Game 3</label>
-						<input type="text" id="game3" name="game3">
-					</div>
-				</div>
-				<button type="submit">Submit</button>
-			</form>
+			<GameForm />
 		</section>
 		<section class="py-3 mb-6">
 			<h3>Rankings</h3>
