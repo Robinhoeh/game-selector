@@ -126,16 +126,10 @@ describe("CountdownClock", () => {
 		const secondsRemainingInMonth = secondsInADay * remainingDays - parseInt(currentSecond)
 		console.log(secondsRemainingInMonth)
 	})
-
 })
-// const now = new Date().getTime?
-// set a countdown time? timeLeft = countdownDate - now
 
-// Countdown will reset to next month after reaching 0 - TBD
 
-// each value will be passed to the component as a prop
-// each value will be displayed in a span element
-// each value will be displayed in a div element
+
 
 
 
