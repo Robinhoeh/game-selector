@@ -35,7 +35,7 @@ const displayRemainingMinutes = () => {
 	if(minutesRemainingInMonth < 10) {
 		return 0 + minutesRemainingInMonth
 	}
-	return Math.round(minutesRemainingInMonth)
+	return Math.round(minutesRemainingInMonth % 60)
 }
 
 const displayRemainingSeconds = () => {
@@ -48,7 +48,7 @@ const displayRemainingSeconds = () => {
 	if(secondsRemainingInMonth < 10) {
 		return 0 + secondsRemainingInMonth
 	}
-	return Math.round(secondsRemainingInMonth)
+	return Math.round(secondsRemainingInMonth % 60)
 }
 	return {
 		displayDaysRemaining,
