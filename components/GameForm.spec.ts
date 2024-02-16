@@ -1,19 +1,20 @@
 import { fireEvent, render, screen } from "@testing-library/vue";
 import { renderSuspended } from "@nuxt/test-utils/runtime";
-import GameInput from "./GameInput.vue";
+// import GameInput from "./GameInput.vue";
 import GameForm from "./GameForm.vue";
 import { plugin } from "@formkit/vue";
+import config from '../formkit.config'
 
 describe("GameForm", () => {
 	test("GameForm should render", async () => {
 		await renderSuspended(GameForm, {
 			global: {
-				plugins: [plugin]
+				plugins: [[plugin, config]],
 			}
 		})
 		// const { debug } = render(GameForm)
 		// debug()
-		expect(screen.queryAllByTestId("game-form")).toBeDefined()
+		expect(screen.getByTestId("game-form")).toBeDefined()
 		// expect(screen.queryAllByTestId("game-input")).toBeTruthy()
 	})
 })
