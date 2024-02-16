@@ -1,8 +1,15 @@
 import { fireEvent, render, screen } from "@testing-library/vue";
 import GameInput from "./GameInput.vue";
+import GameForm from "./GameForm.vue";
+import FormKit from "formkit";
 
-describe("GameInput", () => {
-
+describe("GameForm", () => {
+	test("GameForm should render", () => {
+		const { debug } = render(GameForm)
+		debug()
+		// expect(screen.queryAllByTestId("game-form")).toBeTruthy()
+		expect(screen.queryAllByTestId("game-input")).toBeTruthy()
+	})
 })
 
 // form should render

@@ -1,4 +1,5 @@
 import { defineVitestConfig } from '@nuxt/test-utils/config'
+import vue from '@vitejs/plugin-vue'
 
 export default defineVitestConfig({
 	test: {
@@ -6,6 +7,15 @@ export default defineVitestConfig({
 		// include: ["**/*.{test, spec}.?(c|m)[jt]s?(x)"],
 		
 		//No need to import descibe, it, expect, etc...
-		globals: true
-	}
+		globals: true,
+		exclude: ["formkit"],	
+	},
+	plugins: [vue({
+		template: {
+			compilerOptions: {
+				isCustomElement: tag => tag.startsWith("formkit")
+			}
+		}
+	})]
+
 })
