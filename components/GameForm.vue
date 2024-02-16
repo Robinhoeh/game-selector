@@ -1,5 +1,5 @@
 <template>
-	<FormKit data-test-id="robin">
+	<FormKit data-test-id="game-form">
 		<div class="flex justify-around">
 			<GameInput />
 		</div>
