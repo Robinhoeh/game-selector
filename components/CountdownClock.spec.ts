@@ -8,7 +8,7 @@ import  CountdownClock from "./CountdownClock.vue"
 describe("CountdownClock", () => {
 	test("should display the countdown clock template", () => {
 		const { debug } = render(CountdownClock)
-		debug()
+
 		// render(CountdownClock)
 		expect(screen.queryAllByTestId("countdown-clock")).toBeTruthy()
 		fireEvent.copy(screen.getByText("Days"))
