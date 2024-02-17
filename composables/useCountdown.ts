@@ -1,10 +1,10 @@
-import { format, getDaysInMonth } from 'date-fns'
+import { format } from 'date-fns'
+import { getRemainingDaysInMonth } from './getRemainingDays'
 
 export default function useCountdown() {
 
-	const daysInMonth = getDaysInMonth(new Date())
-	const daysPassed = format(new Date(), 'dd')
-	const remainingDays = daysInMonth - parseInt(daysPassed)
+	const currentDate = new Date()
+	const remainingDays = getRemainingDaysInMonth(currentDate)
 
 	const displayDaysRemaining = () => {
 		if (remainingDays === 0) {
@@ -26,7 +26,6 @@ export default function useCountdown() {
 	const displayRemainingMinutes = () => {
 		const minutesIndADay = 60 * 24
 		const currentMinute = format(new Date(), 'mm')
-		console.log(currentMinute)
 		const minutesRemainingInMonth = minutesIndADay * remainingDays - parseInt(currentMinute)
 		if(parseInt(currentMinute) > 50) {
 			return "0" + Math.floor(minutesRemainingInMonth % 60)
