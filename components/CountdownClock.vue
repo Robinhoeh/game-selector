@@ -20,7 +20,8 @@
 </template>
 
 <script setup lang="ts">
-const { displayDaysRemaining, displayRemainingHours, displayRemainingMinutes, displayRemainingSeconds} = useCountdown()
+const { days, hours, minutes, seconds } = useCountdown(new Date())
+
 
 let remainingDays = ref<number | string>()
 let remainingHours = ref<number | string>()
@@ -28,10 +29,10 @@ let remainingMinutes = ref<number | string>()
 let remainingSeconds = ref<number | string>()
 
 const displayTimeEverySecond = () => {
-	remainingDays.value = displayDaysRemaining()
-	remainingHours.value = displayRemainingHours()
-	remainingMinutes.value = displayRemainingMinutes()
-	remainingSeconds.value = displayRemainingSeconds()
+	remainingDays.value = days()
+	remainingHours.value = hours()
+	remainingMinutes.value = minutes()
+	remainingSeconds.value = seconds()
 }
 
 onBeforeMount(() => {

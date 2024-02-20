@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import { getRemainingDaysInMonth } from './getRemainingDays'
 
+const date = new Date()
 export default function useCountdown(date: Date) {
 
 	let remainingDays = getRemainingDaysInMonth(date)
