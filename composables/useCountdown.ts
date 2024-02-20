@@ -1,14 +1,13 @@
 import { format } from 'date-fns'
 import { getRemainingDaysInMonth } from './getRemainingDays'
 
-export default function useCountdown() {
+export default function useCountdown(date: Date) {
 
-	const currentDate = new Date()
-	const remainingDays = getRemainingDaysInMonth(currentDate)
+	let remainingDays = getRemainingDaysInMonth(date)
 
 	const displayDaysRemaining = () => {
 		if (remainingDays === 0) {
-			return 'Last day of the month'
+			remainingDays = 'Last day of the month'
 		}
 		return remainingDays
 	}
@@ -43,9 +42,9 @@ export default function useCountdown() {
 	}
 	
 	return {
-		displayDaysRemaining,
-		displayRemainingHours,
-		displayRemainingMinutes,
-		displayRemainingSeconds
+		days: displayDaysRemaining,
+		hours: displayRemainingHours,
+		minutes: displayRemainingMinutes,
+		seconds: displayRemainingSeconds
 	}
 }
