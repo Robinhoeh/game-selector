@@ -34,14 +34,8 @@ describe("GameForm", () => {
 				plugins: [[plugin, config]],
 			},
 		})
-			
-		
-		// const { debug } = render(GameForm)
-		// debug()
-		// expect(screen.getByTestId("game-form")).toBeDefined()
+	
 		expect(wrapper.find('[data-test-id="game-form"]').exists()).toBe(true)
-		// expect(screen.getAllByTestId("game-form")).toBeTruthy()
-		// expect(screen.queryAllByTestId("game-input")).toBeTruthy()
 	})
 })
 
