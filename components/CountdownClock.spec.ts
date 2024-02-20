@@ -92,8 +92,7 @@ describe("CountdownClock", () => {
 		expect(daysInMonth).toStrictEqual(getDaysInMonth(new Date()))
 		const daysPassed = format(new Date(), 'dd')
 		expect(daysPassed).toStrictEqual(format(new Date(), 'dd'))
-		const remainingDays = daysInMonth - parseInt(daysPassed)
-		console.log(remainingDays)
+		const remainingDays = daysInMonth - parseInt(daysPassed)	
 	})
 
 	test("should determine how many hours left in month", () => {

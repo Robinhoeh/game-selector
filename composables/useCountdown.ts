@@ -35,7 +35,6 @@ export default function useCountdown(date: Date) {
 
 	const displayRemainingSeconds = () => {
 		const secondsInADay = 60 * 60 * 24
-		console.log(secondsInADay)
 		const currentSecond = format(new Date(), 'ss')
 		const secondsRemainingInMonth = secondsInADay * remainingDays - parseInt(currentSecond)
 		if(parseInt(currentSecond) > 50) return "0" + secondsRemainingInMonth %60
