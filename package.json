@@ -1,15 +1,16 @@
 {
-  "name": "nuxt-app",
+  "name": "game-selector",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "test:unit": "vitest --environment happy-dom",
+    "test": "vitest",
     "coverage": "vitest run --coverage",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "clean": "nuxi cleanup && rm -rf node_modules .nuxt"
   },
   "devDependencies": {
     "@nuxt/test-utils": "^3.11.0",

@@ -8,4 +8,5 @@ export const getRemainingHours = (hours: Date) => {
 	console.log(daysPassed, 'daysPassed')
 	const remainingDays = daysInMonth - parseInt(daysPassed)
 	return hoursInMonth - (remainingDays * 24) - parseInt(currentHour)
+	
 }	
