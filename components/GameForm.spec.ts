@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/vue"
 import { renderSuspended } from "@nuxt/test-utils/runtime"
-// import GameInput from "./GameInput.vue";
+
 import GameForm from "./GameForm.vue"
 import { plugin } from "@formkit/vue"
 import config from '../formkit.config'
@@ -12,12 +12,21 @@ describe("GameForm", () => {
 				plugins: [[plugin, config]],
 			},
 		})
+		// screen.debug()
+		expect(await screen.findByTestId("game-form")).toBeDefined()
+	})
+
+	test("Form input should render",  async () => {
+		await renderSuspended(GameForm, {
+			global: {
+				plugins: [[plugin, config]],
+			}
+		})
 		screen.debug()
-		expect( await screen.findByTestId("game-form")).toBeDefined()
+		expect(await screen.findByTestId("game-input")).toBeDefined()
 	})
 })
 
-// form should render
 // form input should render
 // only one input needs to have a value to submit
 // when form submits, the input should be cleared
