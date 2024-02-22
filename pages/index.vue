@@ -27,8 +27,15 @@
     </section>
     <section class="py-3 mb-6">
       <h3>Add your favorite games</h3>
-      <!-- form with 3 inputs, 1 for each card -->
-      <GameForm />
+      <FormKit
+        id="game-form"
+        type="form"
+        @submit="handleSubmit"
+        submit-label="submit game"
+        v-model="formData"
+      >
+        <GameForm />
+      </FormKit>
     </section>
     <section class="py-3 mb-6">
       <h3>Rankings</h3>
@@ -61,6 +68,21 @@
 </template>
 
 <script setup lang="ts">
+import type { FormKitNode } from "@formkit/core"
+import { getNode } from "@formkit/core"
+const form = ref<FormKitNode>()
+interface Game {
+  [key: string]: string
+}
+const formData = ref()
+const handleSubmit = async (node: FormKitNode) => {
+  console.log(node)
+  formData.value = node
+}
+
+onMounted(() => {
+  form.value = getNode("game-form")
+})
 useHead({
   title: "Game Selector",
   meta: [
