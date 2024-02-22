@@ -36,6 +36,7 @@
       >
         <GameForm />
       </FormKit>
+      {{ formData }}
     </section>
     <section class="py-3 mb-6">
       <h3>Rankings</h3>
@@ -76,8 +77,8 @@ interface Game {
 }
 const formData = ref()
 const handleSubmit = async (node: FormKitNode) => {
-  console.log(node)
   formData.value = node
+  console.log(formData.value)
 }
 
 onMounted(() => {
