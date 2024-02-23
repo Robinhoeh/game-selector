@@ -12,7 +12,6 @@ describe("GameForm", () => {
 				plugins: [[plugin, config]],
 			},
 		})
-		// screen.debug()
 		expect(await screen.findByTestId("game-form")).toBeDefined()
 	})
 
@@ -22,7 +21,7 @@ describe("GameForm", () => {
 				plugins: [[plugin, config]],
 			}
 		})
-		screen.debug()
+		// screen.debug()
 		expect(await screen.findByTestId("game-input")).toBeDefined()
 	})
 })

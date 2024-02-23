@@ -1,14 +1,13 @@
 <template>
-  <div class="flex justify-between mb-5 text-sm">
-    <FormKit data-testid="game-form" type="group" :actions="false">
-      <div class="flex flex-col justify-center">
+  <div class="flex justify-between mb-5 text-sm" data-testid="game-form">
+    <FormKit  type="group" :actions="false">
+      <div class="flex flex-col justify-center" data-testid="game-input">
         <FormKit
           name="pcGame1"
           inner-class="my-2"
           input-class="p-1"
           class="mt-2"
           type="text"
-          data-testid="game-input"
           label="PC game"
           help="Enter a PC game"
         />
@@ -18,7 +17,6 @@
         inner-class="my-2"
         input-class="p-1"
         type="text"
-        data-testid="game-input"
         label="PC game"
         help="Enter a PC game"
       />
@@ -27,7 +25,6 @@
         inner-class="my-2"
         input-class="p-1"
         type="text"
-        data-testid="game-input"
         label="Console game"
         help="Enter a console game"
       />
