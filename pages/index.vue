@@ -41,28 +41,7 @@
     <section class="py-3 mb-6">
       <h3>Rankings</h3>
       <div class="flex justify-around">
-        <!-- card component with list of games -->
-        <div>
-          <ul>
-            <li>game 1</li>
-            <li>game 2</li>
-            <li>game 3</li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li>game 1</li>
-            <li>game 2</li>
-            <li>game 3</li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li>game 1</li>
-            <li>game 2</li>
-            <li>game 3</li>
-          </ul>
-        </div>
+        <RankingTable />
       </div>
     </section>
   </NuxtLayout>
