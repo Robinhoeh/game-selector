@@ -26,9 +26,10 @@
       </div>
     </section>
     <section class="py-3 mb-6">
-      <h3>Add your favorite games</h3>
+      <h3 class="mb-6">Add your favorite games</h3>
       <FormKit
         id="game-form"
+        ref="game-form"
         type="form"
         @submit="handleSubmit"
         submit-label="submit game"
@@ -36,7 +37,6 @@
       >
         <GameForm />
       </FormKit>
-      {{ formData }}
     </section>
     <section class="py-3 mb-6">
       <h3>Rankings</h3>
@@ -72,13 +72,12 @@
 import type { FormKitNode } from "@formkit/core"
 import { getNode } from "@formkit/core"
 const form = ref<FormKitNode>()
-interface Game {
-  [key: string]: string
-}
 const formData = ref()
-const handleSubmit = async (node: FormKitNode) => {
-  formData.value = node
-  console.log(formData.value)
+const handleSubmit = async (form: GameData, node: FormKitNode) => {
+  console.log("form submitted")
+  console.log(form)
+  // formData.value = node.value
+  formData.value = node.value
 }
 
 onMounted(() => {
@@ -95,6 +94,9 @@ useHead({
 })
 </script>
 
-<style scoped lang="postcss">
+<style lang="postcss">
 /* https://ui.nuxt.com/components/carousel */
+.formkit-wrapper button {
+  @apply bg-blue-500 text-white p-3;
+}
 </style>
