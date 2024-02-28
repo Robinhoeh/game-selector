@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@formkit/nuxt": "^1.5.9",
+    "@nuxt/ui": "^2.14.1",
     "date-fns": "^3.3.1"
   }
 }

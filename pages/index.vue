@@ -48,29 +48,30 @@
 </template>
 
 <script setup lang="ts">
-import type { FormKitNode } from "@formkit/core"
-import { getNode } from "@formkit/core"
-const form = ref<FormKitNode>()
-const formData = ref()
+import type { FormKitNode } from "@formkit/core";
+import { getNode } from "@formkit/core";
+const form = ref<FormKitNode>();
+const formData = ref();
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
-  console.log("form submitted")
-  console.log(form)
+  console.log("form submitted");
+  console.log(form);
+  console.log(formData.value.node);
+  //   form.value = form;
   // formData.value = node.value
-  formData.value = node.value
-}
+};
 
 onMounted(() => {
-  form.value = getNode("game-form")
-})
+  form.value = getNode("game-form");
+});
 useHead({
   title: "Game Selector",
   meta: [
     {
       name: "Vote on your favorite games",
-      content: "A game selector"
-    }
-  ]
-})
+      content: "A game selector",
+    },
+  ],
+});
 </script>
 
 <style lang="postcss">

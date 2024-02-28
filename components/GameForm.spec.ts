@@ -21,7 +21,6 @@ describe("GameForm", () => {
 				plugins: [[plugin, config]],
 			}
 		})
-		// screen.debug()
 		expect(await screen.findByTestId("game-input")).toBeDefined()
 	})
 })

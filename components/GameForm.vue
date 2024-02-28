@@ -1,9 +1,9 @@
 <template>
   <div class="flex justify-between mb-5 text-sm" data-testid="game-form">
-    <FormKit  type="group" :actions="false">
+    <FormKit type="group" :actions="false">
       <div class="flex flex-col justify-center" data-testid="game-input">
         <FormKit
-          name="pcGame1"
+          name="pcgame1"
           inner-class="my-2"
           input-class="p-1"
           class="mt-2"
@@ -13,7 +13,7 @@
         />
       </div>
       <FormKit
-        name="pcGame2"
+        name="pcgame2"
         inner-class="my-2"
         input-class="p-1"
         type="text"
@@ -21,7 +21,7 @@
         help="Enter a PC game"
       />
       <FormKit
-        name="consoleGame"
+        name="consolegame"
         inner-class="my-2"
         input-class="p-1"
         type="text"
@@ -32,10 +32,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const pcGame1 = ref("")
-const pcGame2 = ref("")
-const consoleGame = ref("")
-</script>
+<script setup lang="ts"></script>
 
 <style lang="postcss"></style>
