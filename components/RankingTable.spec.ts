@@ -9,6 +9,4 @@ describe("RankingTable", () => {
 	})
 })
 
-
-// ensure vote icon renders and is clickable
 // ensure when vote icon is clicked, it calls a function
