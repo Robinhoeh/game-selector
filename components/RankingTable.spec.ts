@@ -10,8 +10,5 @@ describe("RankingTable", () => {
 })
 
 
-// Ensure table element renders
-// Import Nuxt UI table component
-// Ensure row accepts expected props or data
 // ensure vote icon renders and is clickable
 // ensure when vote icon is clicked, it calls a function

@@ -1,9 +1,24 @@
 <template>
-  <UTable
-    :rows="pcgames1"
-    :columns="columns"
-    data-testid="ranking-table"
-  ></UTable>
+  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table">
+    <template #actions-data>
+      <UButton
+        icon="i-heroicons-arrow-up"
+        size="2xs"
+        color="emerald"
+        variant="outline"
+        :ui="{ rounded: 'rounded-full' }"
+        square
+      />
+      <UButton
+        icon="i-heroicons-arrow-down"
+        size="2xs"
+        color="emerald"
+        variant="outline"
+        :ui="{ rounded: 'rounded-full' }"
+        square
+      />
+    </template>
+  </UTable>
   <UTable :rows="pcgames2" :columns="columns"></UTable>
   <UTable :rows="consolegames" :columns="columns"></UTable>
 </template>
@@ -17,6 +32,9 @@ const columns = [
   {
     key: "title",
     label: "Game title",
+  },
+  {
+    key: "actions",
   },
 ];
 const pcgames1 = [
@@ -99,4 +117,9 @@ const consolegames = [
 ];
 </script>
 
-<style lang="postcss"></style>
+<style lang="postcss">
+tr td {
+  /* TODO: figure out how to remove tailwind forms */
+  @apply text-white !important;
+}
+</style>

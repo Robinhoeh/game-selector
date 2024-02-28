@@ -18,7 +18,8 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
 	'@formkit/nuxt',
 	'@nuxt/ui'
-  ],
+	],
+
   formkit: {
     autoimport: true,
   }
