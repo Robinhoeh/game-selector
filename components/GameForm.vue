@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between mb-5 text-sm" data-testid="game-form">
-    <FormKit type="group" :actions="false">
+    <FormKit type="form" name="game-form" :actions="false">
       <div class="flex flex-col justify-center" data-testid="game-input">
         <FormKit
           name="pcgame1"
