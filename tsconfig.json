@@ -3,9 +3,7 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "types": [
-      "@nuxt/types",
-      "vue",
-      "jest",
+		"vitest/globals"
     ]
   }
 }
