@@ -36,7 +36,6 @@
         v-model="formData"
       >
         <GameForm />
-        {{ formData }}
       </FormKit>
     </section>
     <section class="py-3 mb-6">
@@ -49,18 +48,13 @@
 </template>
 
 <script setup lang="ts">
-import type { FormKitNode, reset } from "@formkit/core";
+import { reset, type FormKitNode } from "@formkit/core";
 import { getNode } from "@formkit/core";
 const form = ref<FormKitNode>();
 const formData = ref<GameData>();
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
   console.log("form submitted");
-  console.log(node.value);
-  console.log(form);
-
-  //   form.value = form;
-  // formData.value = node.value
-  //   reset(node: FormKitNode);
+  reset(node);
 };
 
 onMounted(() => {

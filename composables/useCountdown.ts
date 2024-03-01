@@ -2,17 +2,17 @@ import { format } from 'date-fns'
 import { getRemainingDaysInMonth } from './getRemainingDays'
 
 const date = new Date()
-export default function useCountdown(date: Date) {
+export default function useCountdown(date = new Date()) {
 
 	let remainingDays = getRemainingDaysInMonth(date)
 
 	const displayDaysRemaining = () => {
 		if (remainingDays === 0) {
-			remainingDays = 'Last day of the month'
+			return 'Last day of the month'
 		}
 		return remainingDays
 	}
-
+	
 	const displayRemainingHours = () => {
 		const hoursInDay = 24
 		const currentHour = format(new Date(), 'HH')
