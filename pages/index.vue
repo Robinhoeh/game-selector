@@ -50,7 +50,14 @@
 <script setup lang="ts">
 import { reset, type FormKitNode } from "@formkit/core";
 import { getNode } from "@formkit/core";
-const { pcgames1, pcgames2, consolegames } = useRankingTable();
+const {
+  pcgames1,
+  pcgames2,
+  consolegames,
+  pcgame1Id,
+  pcgame2Id,
+  consolegameId,
+} = useRankingTable();
 
 const form = ref<FormKitNode>();
 const formData = ref<GameData>();
@@ -58,22 +65,30 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
   console.log("form submitted");
   console.log(form);
 
-  if (!form.gameForm.pcgame1) return;
-  pcgames1.push({ id: 1, title: form.pcgame1 });
-  console.log(pcgames1);
-  reset(node);
+  if (form.gameForm.pcgame1) {
+    pcgames1.push({ id: pcgame1Id.value++, title: form.gameForm.pcgame1 });
+    console.log(pcgames1);
+    reset("game-form");
+  }
 
-  if (!form.gameForm.pcgame2) return;
-  pcgames2.push({ id: 2, title: form.pcgame2 });
-  reset(node);
+  if (form.gameForm.pcgame2) {
+    pcgames2.push({ id: pcgame2Id.value++, title: form.gameForm.pcgame2 });
+    reset("game-form");
+  }
 
-  if (!form.gameForm.consolegame) return;
-  consolegames.push({ id: 3, title: form.consolegame });
-  reset(node);
+  if (form.gameForm.consolegame) {
+    consolegames.push({
+      id: consolegameId.value++,
+      title: form.gameForm.consolegame,
+    });
+    console.log(consolegames);
+    reset("game-form");
+  }
 };
 
+const formState = ref();
 onMounted(() => {
-  form.value = getNode("game-form");
+  formState.value = getNode("game-form");
 });
 useHead({
   title: "Game Selector",
