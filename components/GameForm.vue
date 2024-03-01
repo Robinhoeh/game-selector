@@ -3,7 +3,7 @@
     class="flex flex-row justify-between mb-5 text-sm"
     data-testid="game-form"
   >
-    <FormKit type="form" name="game-form" :actions="false">
+    <FormKit type="form" name="gameForm" :actions="false">
       <div class="flex justify-center" data-testid="game-input">
         <FormKit
           name="pcgame1"

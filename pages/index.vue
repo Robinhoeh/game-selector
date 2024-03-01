@@ -50,10 +50,25 @@
 <script setup lang="ts">
 import { reset, type FormKitNode } from "@formkit/core";
 import { getNode } from "@formkit/core";
+const { pcgames1, pcgames2, consolegames } = useRankingTable();
+
 const form = ref<FormKitNode>();
 const formData = ref<GameData>();
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
   console.log("form submitted");
+  console.log(form);
+
+  if (!form.gameForm.pcgame1) return;
+  pcgames1.push({ id: 1, title: form.pcgame1 });
+  console.log(pcgames1);
+  reset(node);
+
+  if (!form.gameForm.pcgame2) return;
+  pcgames2.push({ id: 2, title: form.pcgame2 });
+  reset(node);
+
+  if (!form.gameForm.consolegame) return;
+  consolegames.push({ id: 3, title: form.consolegame });
   reset(node);
 };
 
