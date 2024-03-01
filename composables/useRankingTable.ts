@@ -15,7 +15,7 @@ export default function useRankingTable() {
       key: "actions",
     },
   ];
-  const pcgames1 = ref([])
+  const pcgames1 = ref('')
 	
   const pcgames2 = [
     {

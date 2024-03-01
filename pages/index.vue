@@ -64,9 +64,13 @@ const formData = ref<GameData>();
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
   console.log("form submitted");
   console.log(form);
+  console.log(pcgames1);
 
   if (form.gameForm.pcgame1) {
-    pcgames1.push({ id: pcgame1Id.value++, title: form.gameForm.pcgame1 });
+    pcgames1.value.push({
+      id: pcgame1Id.value++,
+      title: form.gameForm.pcgame1,
+    });
     console.log(pcgames1);
     reset("game-form");
   }
