@@ -13,7 +13,7 @@
       <div class="flex justify-around">
         <div>
           <img src="" alt="" />
-          <div>---- Game 1 ---</div>
+          <div>{{ pcgames1[0].title || "Add a game " }}</div>
         </div>
         <div>
           <img src="" alt="" />
@@ -62,8 +62,6 @@ const {
 const form = ref<FormKitNode>();
 const formData = ref<GameData>();
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
-  console.log("form submitted");
-
   pcgames1.value.push({
     id: pcgame1Id.value++,
     title: form.gameForm.pcgame1,
