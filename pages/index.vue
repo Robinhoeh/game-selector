@@ -63,31 +63,23 @@ const form = ref<FormKitNode>();
 const formData = ref<GameData>();
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
   console.log("form submitted");
-  console.log(form);
-  console.log(pcgames1);
 
-  if (form.gameForm.pcgame1) {
-    pcgames1.value.push({
-      id: pcgame1Id.value++,
-      title: form.gameForm.pcgame1,
-    });
-    console.log(pcgames1);
-    reset("game-form");
-  }
+  pcgames1.value.push({
+    id: pcgame1Id.value++,
+    title: form.gameForm.pcgame1,
+  });
+  reset("game-form");
 
-  if (form.gameForm.pcgame2) {
-    pcgames2.push({ id: pcgame2Id.value++, title: form.gameForm.pcgame2 });
-    reset("game-form");
-  }
+  pcgames2.value.push({
+    id: pcgame2Id.value++,
+    title: form.gameForm.pcgame2,
+  });
+  reset("game-form");
 
-  if (form.gameForm.consolegame) {
-    consolegames.push({
-      id: consolegameId.value++,
-      title: form.gameForm.consolegame,
-    });
-    console.log(consolegames);
-    reset("game-form");
-  }
+  consolegames.value.push({
+    id: consolegameId.value++,
+    title: form.gameForm.consolegame,
+  });
 };
 
 const formState = ref();
