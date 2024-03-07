@@ -1,5 +1,5 @@
 <template>
-	<div class="h-[100vh] bg-purple-400 p-12 font-sixtyfour">
+	<div class="p-12 bg-purple-400 h-[100vh] font-sixtyfour">
 		<slot />
 	</div>
 </template>

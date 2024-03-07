@@ -13,15 +13,15 @@
       <div class="flex justify-around">
         <div>
           <img src="" alt="" />
-          <div>{{ pcgames1[0].title || "Add a game " }}</div>
+          <div>{{ pcgames1[0]?.title || "Top Rated PC game" }}</div>
         </div>
         <div>
           <img src="" alt="" />
-          <div>---- Game 2 ---</div>
+          <div>{{ pcgames2[0]?.title || "Top Rated PC game2" }}</div>
         </div>
         <div>
           <img src="" alt="" />
-          <div>---- Game 3 ---</div>
+          <div>{{ consolegames[0]?.title || 'Top Rated Console game' }}</div>
         </div>
       </div>
     </section>
@@ -41,7 +41,7 @@
     <section class="py-3 mb-6">
       <h3>Rankings</h3>
       <div class="flex justify-around">
-        <RankingTable />
+        <RankingTable @upvote="handleSortRows"/>
       </div>
     </section>
   </NuxtLayout>
@@ -78,6 +78,13 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
     id: consolegameId.value++,
     title: form.gameForm.consolegame,
   });
+};
+
+const handleSortRows = ( row) => {
+  console.log("up");
+	
+	// emit('upvote', list);
+  console.log(row)
 };
 
 const formState = ref();

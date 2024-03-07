@@ -7,5 +7,8 @@ export default defineVitestConfig({
 		
 		//No need to import descibe, it, expect, etc...
 		globals: true,
+		coverage: {
+			provider: 'istanbul'
+		}
 	},
 })

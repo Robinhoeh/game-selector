@@ -1,11 +1,12 @@
 <template>
-  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table">
+  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote">
     <template #actions-data>
       <div class="flex flex-col">
         <UButton
           icon="i-heroicons-arrow-up"
           size="2xs"
           color="emerald"
+		  
           variant="outline"
           :ui="{ rounded: 'rounded-full' }"
           @click="handleUpVote"
@@ -30,9 +31,12 @@
 
 <script setup lang="ts">
 const { columns, pcgames1, pcgames2, consolegames } = useRankingTable();
+const emit = defineEmits('upvote');
 
-const handleUpVote = () => {
-  console.log("up");
+const handleUpVote = (list: any, row) => {
+	emit('upvote', list);
+	console.log(row)
+
 };
 </script>
 
