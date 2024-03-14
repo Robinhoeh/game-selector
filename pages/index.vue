@@ -41,7 +41,7 @@
     <section class="py-3 mb-6">
       <h3>Rankings</h3>
       <div class="flex justify-around">
-        <RankingTable @upvote="handleSortRows"/>
+        <RankingTable />
       </div>
     </section>
   </NuxtLayout>
@@ -56,7 +56,9 @@ const {
   consolegames,
   pcgame1Id,
   pcgame2Id,
-  consolegameId,
+	consolegameId,
+	pcGames1Count,
+  selected
 } = useRankingTable();
 
 const form = ref<FormKitNode>();
@@ -64,7 +66,8 @@ const formData = ref<GameData>();
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
   pcgames1.value.push({
     id: pcgame1Id.value++,
-    title: form.gameForm.pcgame1,
+	  title: form.gameForm.pcgame1,
+	  count: 0
   });
   reset("game-form");
 
@@ -80,12 +83,7 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
   });
 };
 
-const handleSortRows = ( row) => {
-  console.log("up");
-	
-	// emit('upvote', list);
-  console.log(row)
-};
+
 
 const formState = ref();
 onMounted(() => {

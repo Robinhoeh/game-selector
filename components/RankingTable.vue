@@ -1,27 +1,16 @@
 <template>
-  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote">
+  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote" v-model="selected">
     <template #actions-data>
       <div class="flex flex-col">
         <UButton
-          icon="i-heroicons-arrow-up"
+          icon="i-heroicons-star"
           size="2xs"
-          color="emerald"
-		  
-          variant="outline"
-          :ui="{ rounded: 'rounded-full' }"
-          @click="handleUpVote"
+          color="yellow"
+          variant="ghost"
           data-testid="upvote"
           square
         />
-        <UButton
-          icon="i-heroicons-arrow-down"
-          size="2xs"
-          color="emerald"
-          @click="console.log('down')"
-          variant="outline"
-          :ui="{ rounded: 'rounded-full' }"
-          square
-        />
+		{{ voteCount }}
       </div>
     </template>
   </UTable>
@@ -31,13 +20,26 @@
 
 <script setup lang="ts">
 const { columns, pcgames1, pcgames2, consolegames } = useRankingTable();
-const emit = defineEmits('upvote');
 
-const handleUpVote = (list: any, row) => {
-	emit('upvote', list);
-	console.log(row)
+const selected = ref(0)
 
+const handleUpVote = (row: any) => {
+	console.log(row.id)
+	console.log("up");
+	const index = pcgames1.value.findIndex((game) => game.id === row.id);
+	selected.value = index
+	
+	if (index !== -1) {
+		pcgames1.value[row.id].count++
+	}
 };
+
+const voteCount = computed(() => {
+	// loop over pcgames1 and find the selected game count
+	return pcgames1.value[selected.value].count
+})
+
+
 </script>
 
 <style lang="postcss">

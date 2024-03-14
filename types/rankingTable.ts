@@ -8,7 +8,8 @@ declare global {
 
   interface PcGames1 {
     id: number
-    title: string
+	  title: string
+	  count: number
   }
 
   interface PcGames2 {
