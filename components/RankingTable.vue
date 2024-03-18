@@ -40,8 +40,7 @@ const handleUpVote = (row: any) => {
 	}
 };
 
-const getVoteCount = (id: string) => {
-	console.log(id)
+const getVoteCount = (id: number) => {
 	return voteCount.value[id] || 0
 }
 
@@ -52,6 +51,13 @@ const getVoteCount = (id: string) => {
 // 		}
 // 	}
 // })
+watch(pcgames1, (newPcgames1) => {
+	newPcgames1.forEach((item: any) => {
+		if (item.count !== undefined) {
+			voteCount.value[item.id] = item.count
+		}
+	})
+})
 
 
 
