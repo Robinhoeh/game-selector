@@ -1,6 +1,6 @@
 <template>
   <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote" v-model="selected">
-    <template #actions-data>
+    <template #actions-data="{row}">
       <div class="flex flex-col">
         <UButton
           icon="i-heroicons-star"
@@ -9,9 +9,9 @@
           variant="ghost"
           data-testid="upvote"
           square
-        />
-		{{ voteCount }}
-      </div>
+        ><span>{{ getVoteCount(row.id) }}</span></UButton>
+		
+	</div>
     </template>
   </UTable>
   <UTable :rows="pcgames2" :columns="columns"></UTable>
@@ -19,25 +19,43 @@
 </template>
 
 <script setup lang="ts">
-const { columns, pcgames1, pcgames2, consolegames } = useRankingTable();
+const { columns,pcgames1,  pcgames2, consolegames } = useRankingTable();
 
 const selected = ref(0)
+const voteCount = ref({})
+
 
 const handleUpVote = (row: any) => {
 	console.log(row.id)
 	console.log("up");
-	const index = pcgames1.value.findIndex((game) => game.id === row.id);
+	const index = pcgames1.value.findIndex((game: any) => game.id === row.id);
 	selected.value = index
 	
 	if (index !== -1) {
 		pcgames1.value[row.id].count++
+		voteCount.value = {
+			...voteCount.value,
+			[row.id]: pcgames1.value[row.id].count
+		}	
 	}
 };
 
-const voteCount = computed(() => {
-	// loop over pcgames1 and find the selected game count
-	return pcgames1.value[selected.value].count
-})
+const getVoteCount = (id: string) => {
+	console.log(id)
+	return voteCount.value[id] || 0
+}
+
+// watch(voteCount, () => {
+// 	if(voteCount.value) {
+// 		voteCount.value = {
+// 			...voteCount.value
+// 		}
+// 	}
+// })
+
+
+
+
 
 
 </script>

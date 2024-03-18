@@ -56,9 +56,7 @@ const {
   consolegames,
   pcgame1Id,
   pcgame2Id,
-	consolegameId,
-	pcGames1Count,
-  selected
+	consolegameId
 } = useRankingTable();
 
 const form = ref<FormKitNode>();
