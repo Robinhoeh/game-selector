@@ -42,6 +42,12 @@ const displayVoteCount = (id: number) => {
 	return voteCount.value[id] || 0
 }
 
+watchEffect(() => {
+	if (selected) {
+		displayVoteCount(selected.value)
+	}
+})
+
 
 
 </script>

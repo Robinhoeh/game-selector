@@ -92,8 +92,6 @@ watchEffect(() => {
   findHighestCount()
 })
 
-// TODO: seperate format from display game title 
-// TODO: display top rated game on page load
 
 
 const formState = ref();
