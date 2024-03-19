@@ -13,7 +13,7 @@
       <div class="flex justify-around">
         <div>
           <img src="" alt="" />
-          <div>{{ highestCount1 || "Top Rated PC game" }}</div>
+          <div>{{ highestRankedPcgame1 || "Top Rated PC game" }}</div>
         </div>
         <div>
           <img src="" alt="" />
@@ -81,27 +81,25 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
   });
 };
 
-const highestCount1 = ref(0)
-const findHighestCount = computed(() => {
-	const count = pcgames1.value.map((game: any) => {
-		 highestCount1.value = Math.max(highestCount1.value, game.count)
-	
-		if(count) {
-			return game.title
-		}
-	}) 
+const highestRankedPcgame1 = ref('')
+const findHighestCount = () => {
+  const highestCount = Math.max(...pcgames1.value.map(game => game.count))
+  const highestRankedGame = pcgames1.value.find(game => game.count === highestCount)
+  highestRankedPcgame1.value = highestRankedGame?.title
+}
 
+watchEffect(() => {
+  findHighestCount()
 })
 
 // TODO: seperate format from display game title 
 // TODO: display top rated game on page load
 
 
-
 const formState = ref();
 onMounted(() => {
 	formState.value = getNode("game-form");
-//   findHighestCount.value
+	  findHighestCount()
 });
 useHead({
   title: "Game Selector",

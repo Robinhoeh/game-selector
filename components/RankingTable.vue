@@ -9,8 +9,8 @@
           variant="ghost"
           data-testid="upvote"
           square
-        ><span>{{ getVoteCount(row.id) }}</span></UButton>
-		
+        ><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
+	</UButton>
 	</div>
     </template>
   </UTable>
@@ -24,43 +24,23 @@ const { columns,pcgames1,  pcgames2, consolegames } = useRankingTable();
 const selected = ref(0)
 const voteCount = ref({})
 
-
 const handleUpVote = (row: any) => {
-	console.log(row.id)
-	console.log("up");
+	
 	const index = pcgames1.value.findIndex((game: any) => game.id === row.id);
-	selected.value = index
+	selected.value = row.id
 	
 	if (index !== -1) {
-		pcgames1.value[row.id].count++
+		pcgames1.value[index].count++
 		voteCount.value = {
 			...voteCount.value,
-			[row.id]: pcgames1.value[row.id].count
+			[row.id]: pcgames1.value[index].count
 		}	
 	}
 };
 
-const getVoteCount = (id: number) => {
+const displayVoteCount = (id: number) => {
 	return voteCount.value[id] || 0
 }
-
-// watch(voteCount, () => {
-// 	if(voteCount.value) {
-// 		voteCount.value = {
-// 			...voteCount.value
-// 		}
-// 	}
-// })
-watch(pcgames1, (newPcgames1) => {
-	newPcgames1.forEach((item: any) => {
-		if (item.count !== undefined) {
-			voteCount.value[item.id] = item.count
-		}
-	})
-})
-
-
-
 
 
 
