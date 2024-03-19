@@ -1,5 +1,5 @@
 <template>
-  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote" v-model="selected">
+  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote">
     <template #actions-data="{row}">
       <div class="flex flex-col">
         <UButton
@@ -21,13 +21,11 @@
 <script setup lang="ts">
 const { columns,pcgames1,  pcgames2, consolegames } = useRankingTable();
 
-const selected = ref(0)
 const voteCount = ref({})
 
 const handleUpVote = (row: any) => {
 	
 	const index = pcgames1.value.findIndex((game: any) => game.id === row.id);
-	selected.value = row.id
 	
 	if (index !== -1) {
 		pcgames1.value[index].count++
@@ -41,14 +39,6 @@ const handleUpVote = (row: any) => {
 const displayVoteCount = (id: number) => {
 	return voteCount.value[id] || 0
 }
-
-watchEffect(() => {
-	if (selected) {
-		displayVoteCount(selected.value)
-	}
-})
-
-
 
 </script>
 
