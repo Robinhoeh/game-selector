@@ -28,6 +28,7 @@
     <section class="py-3 mb-6">
       <h3 class="mb-6">Add your favorite games</h3>
       <FormKit
+	  	outer-class="flex justify-around"
         id="game-form"
         ref="game-form"
         type="form"

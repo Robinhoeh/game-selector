@@ -3,7 +3,7 @@
     class="flex flex-row justify-between mb-5 text-sm"
     data-testid="game-form"
   >
-    <FormKit type="form" name="gameForm" :actions="false">
+    <FormKit type="form" name="gameForm" :actions="false" outer-class="form">
       <div class="flex justify-center" data-testid="game-input">
         <FormKit
           name="pcgame1"
@@ -59,4 +59,8 @@ function distinct(node: any) {
 }
 </script>
 
-<style lang="postcss"></style>
+<style lang="postcss">
+.form {
+	@apply flex justify-between w-full;
+}
+</style>
