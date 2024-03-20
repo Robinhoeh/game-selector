@@ -13,6 +13,9 @@
           type="text"
           label="PC game"
           help="Enter a PC game"
+		  validation="distinct"
+		  :validation-rules="{ distinct }"
+		  :validation-messages="{ distinct: 'Game already exists' }"
         />
       </div>
       <FormKit
@@ -22,6 +25,9 @@
         type="text"
         label="PC game"
         help="Enter a PC game"
+		validation="distinct"
+		:validation-rules="{ distinct }"
+		:validation-messages="{ distinct: 'Game already exists' }"
       />
       <FormKit
         name="consolegame"
@@ -30,11 +36,27 @@
         type="text"
         label="Console game"
         help="Enter a console game"
+		validation="distinct"
+		:validation-rules="{ distinct }"
+		:validation-messages="{ distinct: 'Game already exists' }"
       />
     </FormKit>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+function distinct(node: any) {
+  const parent = node.at('$parent')
+  if (parent.value) {
+    for (const childName in parent.value) {
+      if (childName === node.name) continue
+      if (parent.value[childName] === node.value) {
+        return false
+      }
+    }
+  }
+  return true
+}
+</script>
 
 <style lang="postcss"></style>

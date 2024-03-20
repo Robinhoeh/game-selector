@@ -61,25 +61,47 @@ const {
 
 const form = ref<FormKitNode>();
 const formData = ref<GameData>();
+const toast = useToast();
+
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
-  pcgames1.value.push({
-    id: pcgame1Id.value++,
-	  title: form.gameForm.pcgame1,
-	  count: 0
-  });
-  reset("game-form");
+	// block form submission if game already exists
+	if (pcgames1.value.find(game => game.title === form.gameForm.pcgame1) || pcgames2.value.find(game => game.title === form.gameForm.pcgame2) || consolegames.value.find(game => game.title === form.gameForm.consolegame)) {
+		toast.add({
+			title: "Game already exists",
+			description: "Please enter a different game",
+			status: "error",
+			duration: 3000,
+		});
+		return
+	}
+	console.log(node.value?.gameForm?.pcgame1)
+	if (node.value?.gameForm?.pcgame1) {
+		pcgames1.value.push({
+			id: pcgame1Id.value++,
+			title: form.gameForm.pcgame1,
+			count: 0
+		});
+		reset("game-form");
+	} 
 
-  pcgames2.value.push({
-    id: pcgame2Id.value++,
-    title: form.gameForm.pcgame2,
-  });
-  reset("game-form");
+	if (node.value?.gameForm?.pcgame2) {
+		pcgames2.value.push({
+			id: pcgame2Id.value++,
+			title: form.gameForm.pcgame2,
+		});
+		reset("game-form");
+	}
 
-  consolegames.value.push({
-    id: consolegameId.value++,
-    title: form.gameForm.consolegame,
-  });
+	if (node.value?.gameForm?.consolegame) {	
+		consolegames.value.push({
+			id: consolegameId.value++,
+			title: form.gameForm.consolegame,
+		});
+		reset("game-form");
+	}
+	
 };
+
 
 const highestRankedPcgame1 = ref('')
 const findHighestCount = () => {
@@ -91,8 +113,6 @@ const findHighestCount = () => {
 watchEffect(() => {
   findHighestCount()
 })
-
-
 
 const formState = ref();
 onMounted(() => {
@@ -111,7 +131,6 @@ useHead({
 </script>
 
 <style lang="postcss">
-/* https://ui.nuxt.com/components/carousel */
 .formkit-wrapper button {
   @apply bg-blue-500 text-white p-3;
 }
