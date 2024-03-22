@@ -1,5 +1,5 @@
 <template>
-	<div class="p-12 bg-purple-400 font-sixtyfour">
+	<div class="h-auto p-12 bg-purple-400 font-sixtyfour">
 		<slot />
 	</div>
 </template>

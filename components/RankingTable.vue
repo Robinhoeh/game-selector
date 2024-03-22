@@ -45,11 +45,13 @@ const displayVoteCount = (id: number) => {
 <style lang="postcss">
 .ranking-table {
 	table-layout: fixed;
+	width: 300px;
 
 	thead th {
-	padding-left: 4px;
+		padding-left: 4px;
+	}
 }
-}
+
 
 tr td {
   /* TODO: figure out how to remove tailwind forms */
