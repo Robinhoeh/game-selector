@@ -6,26 +6,26 @@
       month.
     </p>
 	
+	<section class="py-8">
+	<h3 class="pb-8">Leader Board</h3>
+	  <div class="flex justify-around">
+		<div>
+		  <img src="" alt="" />
+		  <p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
+		</div>
+		<div>
+		  <img src="" alt="" />
+		  <p class="w-[300px] break-words">{{ pcgames2[0]?.title || "Top Rated PC game 2" }}</p>
+		</div>
+		<div>
+		  <img src="" alt="" />
+		  <p class="w-[300px] break-words">{{ consolegames[0]?.title || 'Top Rated Console game' }}</p>
+		</div>
+	  </div>
+	</section>
     <section class="py-8">
       <h3>Countdown to end of month</h3>
       <CountdownClock />
-    </section>
-    <section class="py-8">
-	<h3 class="pb-8">Leader Board</h3>
-      <div class="flex justify-around">
-        <div>
-          <img src="" alt="" />
-          <p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
-        </div>
-        <div>
-          <img src="" alt="" />
-          <p class="w-[300px] break-words">{{ pcgames2[0]?.title || "Top Rated PC game 2" }}</p>
-        </div>
-        <div>
-          <img src="" alt="" />
-          <p class="w-[300px] break-words">{{ consolegames[0]?.title || 'Top Rated Console game' }}</p>
-        </div>
-      </div>
     </section>
     <section class="py-3 mb-6">
       <h3 class="mb-6">Add your favorite games</h3>
@@ -36,12 +36,11 @@
         @submit="handleSubmit"
         submit-label="submit game"
         v-model="formData"
-		
       >
         <GameForm @reset="handleReset"/>
       </FormKit>
     </section>
-    <section class="py-3 mb-6">
+    <section class="py-8 mb-6">
       <h3>Rankings</h3>
       <div class="flex justify-between">
         <RankingTable />
@@ -140,6 +139,7 @@ useHead({
 
 <style lang="postcss">
 .formkit-wrapper button {
-  @apply bg-blue-500 text-white p-3;
+  @apply bg-blue-500 text-white p-3 mt-5;
 }
+
 </style>

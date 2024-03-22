@@ -45,6 +45,10 @@ const displayVoteCount = (id: number) => {
 <style lang="postcss">
 .ranking-table {
 	table-layout: fixed;
+
+	thead th {
+	padding-left: 4px;
+}
 }
 
 tr td {
@@ -55,7 +59,4 @@ tr td {
   overflow: hidden;
 }
 
-.ranking-table thead th {
-	padding-left: 4px;
-}
 </style>
