@@ -6,7 +6,7 @@
       <div class="flex justify-center" data-testid="game-input">
         <FormKit
           name="pcgame1"
-          inner-class="my-2"
+          inner-class="relative my-2"
           input-class="p-1"
           class="mt-2"
           type="text"
@@ -15,22 +15,28 @@
 		  validation="distinct"
 		  :validation-rules="{ distinct }"
 		  :validation-messages="{ distinct: 'Game already exists' }"
+		  suffix-icon-class="cursor-pointer hover:text-orange-500"
+		  suffix-icon="close"
+		  @suffix-icon-click="$emit('reset')"
         />
       </div>
       <FormKit
         name="pcgame2"
-        inner-class="my-2"
-        input-class="p-1"
+        inner-class="relative my-2"
+        input-class="p-1 "
         type="text"
         label="PC game"
         help="Enter a PC game"
 		validation="distinct"
 		:validation-rules="{ distinct }"
 		:validation-messages="{ distinct: 'Game already exists' }"
+		suffix-icon-class="cursor-pointer hover:text-orange-500"
+		  suffix-icon="close"
+		  @suffix-icon-click="$emit('reset')"
       />
       <FormKit
         name="consolegame"
-        inner-class="my-2"
+        inner-class="relative my-2"
         input-class="p-1"
         type="text"
         label="Console game"
@@ -38,6 +44,9 @@
 		validation="distinct"
 		:validation-rules="{ distinct }"
 		:validation-messages="{ distinct: 'Game already exists' }"
+		suffix-icon-class="cursor-pointer hover:text-orange-500"
+		  suffix-icon="close"
+		  @suffix-icon-click="$emit('reset')"
       />
     
   </div>
@@ -56,10 +65,19 @@ function distinct(node: any) {
   }
   return true
 }
+
+defineEmits(['reset'])
 </script>
 
 <style lang="postcss">
 .form {
 	@apply flex justify-between w-full;
+}
+
+.formkit-icon svg {
+	width: 12px;
+  position: absolute;
+  top: 6px;
+  right: 8px;
 }
 </style>

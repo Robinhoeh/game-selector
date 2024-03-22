@@ -1,27 +1,29 @@
 <template>
   <NuxtLayout>
-    <h1 class="prose-1">Game Selector</h1>
-    <p>
+    <h1 class="mb-b prose-1">Game Selector</h1>
+    <p class="mb-8">
       Vote on your favorite games to be chosen for team play at the end of the
-      month
+      month.
     </p>
-    <section class="py-3 mb-6 mt-7">
+	
+    <section class="py-8">
       <h3>Countdown to end of month</h3>
       <CountdownClock />
     </section>
-    <section class="py-3 mb-6">
+    <section class="py-8">
+	<h3 class="pb-8">Leader Board</h3>
       <div class="flex justify-around">
         <div>
           <img src="" alt="" />
-          <div>{{ highestRankedPcgame1 || "Top Rated PC game" }}</div>
+          <p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
         </div>
         <div>
           <img src="" alt="" />
-          <div>{{ pcgames2[0]?.title || "Top Rated PC game2" }}</div>
+          <p class="w-[300px] break-words">{{ pcgames2[0]?.title || "Top Rated PC game 2" }}</p>
         </div>
         <div>
           <img src="" alt="" />
-          <div>{{ consolegames[0]?.title || 'Top Rated Console game' }}</div>
+          <p class="w-[300px] break-words">{{ consolegames[0]?.title || 'Top Rated Console game' }}</p>
         </div>
       </div>
     </section>
@@ -34,8 +36,9 @@
         @submit="handleSubmit"
         submit-label="submit game"
         v-model="formData"
+		
       >
-        <GameForm />
+        <GameForm @reset="handleReset"/>
       </FormKit>
     </section>
     <section class="py-3 mb-6">
@@ -101,6 +104,11 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	}
 	
 };
+
+const handleReset = () => {
+	console.log('resetting?')
+	reset("game-form");
+}
 
 
 const highestRankedPcgame1 = ref('')
