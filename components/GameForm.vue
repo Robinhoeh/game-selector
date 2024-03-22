@@ -3,7 +3,6 @@
     class="flex flex-row justify-between mb-5 text-sm"
     data-testid="game-form"
   >
-    <FormKit type="form" name="gameForm" :actions="false" outer-class="form">
       <div class="flex justify-center" data-testid="game-input">
         <FormKit
           name="pcgame1"
@@ -40,7 +39,7 @@
 		:validation-rules="{ distinct }"
 		:validation-messages="{ distinct: 'Game already exists' }"
       />
-    </FormKit>
+    
   </div>
 </template>
 

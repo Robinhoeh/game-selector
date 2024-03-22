@@ -1,5 +1,5 @@
 <template>
-  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote">
+  <UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote" class="ranking-table">
     <template #actions-data="{row}">
       <div class="flex flex-col">
         <UButton
@@ -14,8 +14,8 @@
 	</div>
     </template>
   </UTable>
-  <UTable :rows="pcgames2" :columns="columns"></UTable>
-  <UTable :rows="consolegames" :columns="columns"></UTable>
+  <UTable :rows="pcgames2" :columns="columns" class="ranking-table"></UTable>
+  <UTable :rows="consolegames" :columns="columns" class="ranking-table"></UTable>
 </template>
 
 <script setup lang="ts">
@@ -46,5 +46,9 @@ const displayVoteCount = (id: number) => {
 tr td {
   /* TODO: figure out how to remove tailwind forms */
   @apply text-white px-1 py-0.5 !important;
+}
+
+.ranking-table thead th{
+	padding-left: 4px;
 }
 </style>

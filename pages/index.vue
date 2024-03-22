@@ -27,9 +27,9 @@
     </section>
     <section class="py-3 mb-6">
       <h3 class="mb-6">Add your favorite games</h3>
-      <FormKit
+      <FormKit 
+	  	ref="game-form"
         id="game-form"
-        ref="game-form"
         type="form"
         @submit="handleSubmit"
         submit-label="submit game"
@@ -40,7 +40,7 @@
     </section>
     <section class="py-3 mb-6">
       <h3>Rankings</h3>
-      <div class="flex justify-around">
+      <div class="flex justify-between">
         <RankingTable />
       </div>
     </section>
@@ -65,7 +65,7 @@ const toast = useToast();
 
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	// block form submission if game already exists
-	if (pcgames1.value.find(game => game.title === form.gameForm.pcgame1) || pcgames2.value.find(game => game.title === form.gameForm.pcgame2) || consolegames.value.find(game => game.title === form.gameForm.consolegame)) {
+	if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
 		toast.add({
 			title: "Game already exists",
 			description: "Please enter a different game",
@@ -74,28 +74,28 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 		});
 		return
 	}
-	console.log(node.value?.gameForm?.pcgame1)
-	if (node.value?.gameForm?.pcgame1) {
+	
+	if (node.value?.pcgame1) {
 		pcgames1.value.push({
 			id: pcgame1Id.value++,
-			title: form.gameForm.pcgame1,
+			title: form.pcgame1,
 			count: 0
 		});
 		reset("game-form");
 	} 
 
-	if (node.value?.gameForm?.pcgame2) {
+	if (node.value?.pcgame2) {
 		pcgames2.value.push({
 			id: pcgame2Id.value++,
-			title: form.gameForm.pcgame2,
+			title: form.pcgame2,
 		});
 		reset("game-form");
 	}
 
-	if (node.value?.gameForm?.consolegame) {	
+	if (node.value?.consolegame) {	
 		consolegames.value.push({
 			id: consolegameId.value++,
-			title: form.gameForm.consolegame,
+			title: form.consolegame,
 		});
 		reset("game-form");
 	}
