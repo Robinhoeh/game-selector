@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-const { columns,pcgames1,  pcgames2, consolegames } = useRankingTable();
+const { columns, pcgames1, pcgames2, consolegames } = useRankingTable();
 
 const voteCount = ref({})
 

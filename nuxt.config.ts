@@ -15,11 +15,16 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@nuxt/test-utils/module',
+	'@nuxt/test-utils/module',
 	'@formkit/nuxt',
-	'@nuxt/ui'
-	],
+	'@nuxt/ui',
+	'nuxt-appwrite',
+],
 
+appwrite: {
+	endpoint:'https://cloud.appwrite.io/v1',
+	project:'6602292422ff13d3f84d'
+},
   formkit: {
     autoimport: true,
   }

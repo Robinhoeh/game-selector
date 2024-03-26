@@ -1,5 +1,7 @@
 <template>
   <NuxtLayout>
+	
+	
     <h1 class="mb-b prose-1">Game Selector</h1>
     <p class="mb-8">
       Vote on your favorite games to be chosen for team play at the end of the
@@ -52,7 +54,7 @@
 <script setup lang="ts">
 import { reset, type FormKitNode } from "@formkit/core";
 import { getNode } from "@formkit/core";
-import { is } from "date-fns/locale";
+
 const {
   pcgames1,
   pcgames2,
