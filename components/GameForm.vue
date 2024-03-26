@@ -16,7 +16,7 @@
 		  :validation-rules="{ distinct }"
 		  :validation-messages="{ distinct: 'Game already exists' }"
 		  suffix-icon-class="cursor-pointer hover:text-orange-500"
-		  suffix-icon="close"
+		  :suffix-icon="suffixIcon"
 		  @suffix-icon-click="$emit('reset')"
         />
       </div>
@@ -31,7 +31,7 @@
 		:validation-rules="{ distinct }"
 		:validation-messages="{ distinct: 'Game already exists' }"
 		suffix-icon-class="cursor-pointer hover:text-orange-500"
-		  suffix-icon="close"
+		  :suffix-icon="suffixIcon"
 		  @suffix-icon-click="$emit('reset')"
       />
       <FormKit
@@ -45,7 +45,7 @@
 		:validation-rules="{ distinct }"
 		:validation-messages="{ distinct: 'Game already exists' }"
 		suffix-icon-class="cursor-pointer hover:text-orange-500"
-		  suffix-icon="close"
+		  :suffix-icon="suffixIcon"
 		  @suffix-icon-click="$emit('reset')"
       />
     
@@ -53,6 +53,12 @@
 </template>
 
 <script setup lang="ts">
+interface Props {
+  suffixIcon?: string | null
+}
+
+defineProps<Props>()
+
 function distinct(node: any) {
   const parent = node.at('$parent')
   if (parent.value) {

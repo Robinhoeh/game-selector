@@ -37,7 +37,7 @@
         submit-label="submit game"
         v-model="formData"
       >
-        <GameForm @reset="handleReset"/>
+        <GameForm @reset="handleReset" :suffix-icon="isFormDirty"/>
       </FormKit>
     </section>
     <section class="py-8 mb-6">
@@ -52,6 +52,7 @@
 <script setup lang="ts">
 import { reset, type FormKitNode } from "@formkit/core";
 import { getNode } from "@formkit/core";
+import { is } from "date-fns/locale";
 const {
   pcgames1,
   pcgames2,
@@ -65,6 +66,8 @@ const form = ref<FormKitNode>();
 const formData = ref<GameData>();
 const toast = useToast();
 
+
+
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	// block form submission if game already exists
 	if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
@@ -76,6 +79,7 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 		});
 		return
 	}
+
 	
 	if (node.value?.pcgame1) {
 		pcgames1.value.push({
@@ -101,13 +105,19 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 		});
 		reset("game-form");
 	}
-	
-};
+}
 
 const handleReset = () => {
-	console.log('resetting?')
 	reset("game-form");
 }
+
+const isFormDirty = computed(() => {
+	if (form.value?.context?.state?.dirty) {
+		return 'close'
+	}
+	return null
+})
+
 
 
 const highestRankedPcgame1 = ref('')
@@ -118,13 +128,12 @@ const findHighestCount = () => {
 }
 
 watchEffect(() => {
-  findHighestCount()
+	findHighestCount()
 })
 
-const formState = ref();
 onMounted(() => {
-	formState.value = getNode("game-form");
-	  findHighestCount()
+	form.value = getNode("game-form");
+	//   findHighestCount()
 });
 useHead({
   title: "Game Selector",
