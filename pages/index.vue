@@ -8,16 +8,16 @@
 	
 	<section class="py-8">
 	<h3 class="pb-8">Leader Board</h3>
-	  <div class="flex justify-around">
-		<div>
+	  <div class="flex justify-between">
+		<div class="min-h-36">
 		  <img src="" alt="" />
 		  <p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
 		</div>
-		<div>
+		<div class="min-h-36">
 		  <img src="" alt="" />
 		  <p class="w-[300px] break-words">{{ pcgames2[0]?.title || "Top Rated PC game 2" }}</p>
 		</div>
-		<div>
+		<div class="min-h-36">
 		  <img src="" alt="" />
 		  <p class="w-[300px] break-words">{{ consolegames[0]?.title || 'Top Rated Console game' }}</p>
 		</div>
@@ -112,10 +112,10 @@ const handleReset = () => {
 }
 
 const isFormDirty = computed(() => {
-	if (form.value?.context?.state?.dirty) {
-		return 'close'
+	if (!form.value?.context?.state?.dirty) {
+		return null
 	}
-	return null
+	return 'close'
 })
 
 
