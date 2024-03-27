@@ -21,6 +21,14 @@
 <script setup lang="ts">
 const { columns, pcgames1, pcgames2, consolegames } = useRankingTable();
 
+const { account } = useAppwrite()
+try {
+  const res = await account.get()
+  console.log(res)
+} catch (err) {
+  console.log(err)
+}
+
 const voteCount = ref({})
 
 const handleUpVote = (row: any) => {
