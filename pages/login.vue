@@ -1,47 +1,41 @@
 <script setup>
-const router = useRouter();
-import { account, ID } from '../utils/appwrite.js';
+// Access user composable functions
+const user = useUserSession();
 
+const isSignUp = ref(false);
 
-const loggedInUser = ref(null);
-const email = ref('');
-const password = ref('');
-const name = ref('');
+// Login user event handler
+const handleLogin = async (event) => {
+	const form = event.target;
+	const formData = new FormData(form);
 
-const login = async (email, password) => {
-  await account.createEmailSession(email, password);
-	loggedInUser.value = await account.get();
-	router.push('/');
+	await user.login(formData.get('email'), formData.get('password'));
+
+	form.reset(); // Clear the form
 };
 
-const register = async () => {
-  await account.create(ID.unique(), email.value, password.value, name.value);
-  login(email.value, password.value);
-};
+const handleRegistration = async (event) => {
+	const form = event.target;
+	const formData = new FormData(form);
 
-const logout = async () => {
-  await account.deleteSession('current');
-  loggedInUser.value = null;
+	await user.register(formData.get('email'), formData.get('password'));
+
+	form.reset(); // Clear the form
 };
 </script>
 
 <template>
-  <div>
-    <p>
-      {{ loggedInUser ? `Logged in as ${loggedInUser.name}` : 'Not logged in' }}
-    </p>
-
-    <form>
-      <input type="email" placeholder="Email" v-model="email" />
-      <input type="password" placeholder="Password" v-model="password" />
-      <input type="text" placeholder="Name" v-model="name" />
-      <button type="button" @click="login(email, password)">Login</button>
-      <button type="button" @click="register">
-        Register
-      </button>
-      <button type="button" @click="logout">
-        Logout
-      </button>
-    </form>
-  </div>
-</template> 
+	<div class="u-max-width-650" style="margin: 0 auto;">
+		<section class="card u-margin-32">
+			<h2 class="eyebrow-heading-2">Login/Register</h2>
+			<AuthForm v-if="isSignUp" :handle-submit="handleRegistration" submit-type="Sign Up"></AuthForm>
+			<AuthForm v-else :handle-submit="handleLogin" submit-type="Log In"></AuthForm>
+			<button v-if="isSignUp" @click="isSignUp = false" class="u-margin-block-start-16">
+				Already have an account? Log in
+			</button>
+			<button v-else @click="isSignUp = true" class="u-margin-block-start-16">
+				Don't have an account? Sign up
+			</button>
+		</section>
+	</div>
+</template>
