@@ -1,5 +1,6 @@
 <template>
   <div>
+	<GameNavbar />
     <NuxtPage />
 	<UNotifications />
   </div>

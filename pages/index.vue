@@ -1,59 +1,70 @@
 <template>
-  <NuxtLayout>
-	
-	
-    <h1 class="mb-b prose-1">Game Selector</h1>
-    <p class="mb-8">
-      Vote on your favorite games to be chosen for team play at the end of the
-      month.
-    </p>
-	
-	<section class="py-8">
-	<h3 class="pb-8">Leader Board</h3>
-	  <div class="flex justify-between">
-		<div class="min-h-36">
-		  <img src="" alt="" />
-		  <p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
+	<NuxtLayout>
+
+		<div class="u-max-width-650" style="margin-inline: auto;">
+			<!-- Idea form component for logged in users -->
+			<section v-if="user.current.value" class="card u-margin-32">
+				<IdeasForm />
+			</section>
+
+			<section v-else class="card u-margin-32">
+				<div class="container">
+					<p class="body-text-1" style="width: 100%;">
+						Please login to submit an idea.
+					</p>
+				</div>
+			</section>
+			<IdeasList />
 		</div>
-		<div class="min-h-36">
-		  <img src="" alt="" />
-		  <p class="w-[300px] break-words">{{ pcgames2[0]?.title || "Top Rated PC game 2" }}</p>
-		</div>
-		<div class="min-h-36">
-		  <img src="" alt="" />
-		  <p class="w-[300px] break-words">{{ consolegames[0]?.title || 'Top Rated Console game' }}</p>
-		</div>
-	  </div>
-	</section>
-    <section class="py-8">
-      <h3>Countdown to end of month</h3>
-      <CountdownClock />
-    </section>
-    <section class="py-3 mb-6">
-      <h3 class="mb-6">Add your favorite games</h3>
-      <FormKit 
-	  	ref="game-form"
-        id="game-form"
-        type="form"
-        @submit="handleSubmit"
-        submit-label="submit game"
-        v-model="formData"
-      >
-        <GameForm @reset="handleReset" :suffix-icon="isFormDirty"/>
-      </FormKit>
-    </section>
-    <section class="py-8 mb-6">
-      <h3>Rankings</h3>
-      <div class="flex justify-between">
-        <RankingTable />
-      </div>
-    </section>
-  </NuxtLayout>
+
+
+		<h1 class="mb-b prose-1">Game Selector</h1>
+		<p class="mb-8">
+			Vote on your favorite games to be chosen for team play at the end of the
+			month.
+		</p>
+
+		<section class="py-8">
+			<h3 class="pb-8">Leader Board</h3>
+			<div class="flex justify-between">
+				<div class="min-h-36">
+					<img src="" alt="" />
+					<p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
+				</div>
+				<div class="min-h-36">
+					<img src="" alt="" />
+					<p class="w-[300px] break-words">{{ pcgames2[0]?.title || "Top Rated PC game 2" }}</p>
+				</div>
+				<div class="min-h-36">
+					<img src="" alt="" />
+					<p class="w-[300px] break-words">{{ consolegames[0]?.title || 'Top Rated Console game' }}</p>
+				</div>
+			</div>
+		</section>
+		<section class="py-8">
+			<h3>Countdown to end of month</h3>
+			<CountdownClock />
+		</section>
+		<section class="py-3 mb-6">
+			<h3 class="mb-6">Add your favorite games</h3>
+			<FormKit ref="game-form" id="game-form" type="form" @submit="handleSubmit" submit-label="submit game" v-model="formData">
+				<GameForm @reset="handleReset" :suffix-icon="isFormDirty" />
+			</FormKit>
+		</section>
+		<section class="py-8 mb-6">
+			<h3>Rankings</h3>
+			<div class="flex justify-between">
+				<RankingTable />
+			</div>
+		</section>
+	</NuxtLayout>
 </template>
 
 <script setup lang="ts">
 import { reset, type FormKitNode } from "@formkit/core";
 import { getNode } from "@formkit/core";
+
+const user = useUserSession();
 
 const {
   pcgames1,
@@ -151,6 +162,10 @@ useHead({
 <style lang="postcss">
 .formkit-wrapper button {
   @apply bg-blue-500 text-white p-3 mt-5;
+}
+
+article.box {
+	background-color: hsl(var(--color-neutral-0));
 }
 
 </style>
