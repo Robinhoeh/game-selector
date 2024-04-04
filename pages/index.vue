@@ -64,8 +64,6 @@
 import { reset, type FormKitNode } from "@formkit/core";
 import { getNode } from "@formkit/core";
 
-const user = useUserSession();
-
 const {
   pcgames1,
   pcgames2,
@@ -80,9 +78,17 @@ const formData = ref<GameData>();
 const toast = useToast();
 
 
+const games = useGamesApi()
+const user = useUserSession()
+const handleSubmit = async (form: GameData, node: FormKitNode, user: any) => {
 
-const handleSubmit = async (form: GameData, node: FormKitNode) => {
-	// block form submission if game already exists
+	const postGameData = {
+		// userid: user.current.value.userId,
+		id: pcgame1Id.value++,
+		game_title: form.pcgame1,
+		count: 0
+	}
+
 	if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
 		toast.add({
 			title: "Game already exists",
@@ -92,32 +98,46 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 		});
 		return
 	}
-
 	
 	if (node.value?.pcgame1) {
-		pcgames1.value.push({
-			id: pcgame1Id.value++,
-			title: form.pcgame1,
-			count: 0
-		});
-		reset("game-form");
-	} 
-
-	if (node.value?.pcgame2) {
-		pcgames2.value.push({
-			id: pcgame2Id.value++,
-			title: form.pcgame2,
-		});
-		reset("game-form");
+		await games.addGame(postGameData)
 	}
+	// block form submission if game already exists
+	// if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
+	// 	toast.add({
+	// 		title: "Game already exists",
+	// 		description: "Please enter a different game",
+	// 		status: "error",
+	// 		duration: 3000,
+	// 	});
+	// 	return
+	// }
 
-	if (node.value?.consolegame) {	
-		consolegames.value.push({
-			id: consolegameId.value++,
-			title: form.consolegame,
-		});
-		reset("game-form");
-	}
+	
+	// if (node.value?.pcgame1) {
+	// 	pcgames1.value.push({
+	// 		id: pcgame1Id.value++,
+	// 		title: form.pcgame1,
+	// 		count: 0
+	// 	});
+	// 	reset("game-form");
+	// } 
+
+	// if (node.value?.pcgame2) {
+	// 	pcgames2.value.push({
+	// 		id: pcgame2Id.value++,
+	// 		title: form.pcgame2,
+	// 	});
+	// 	reset("game-form");
+	// }
+
+	// if (node.value?.consolegame) {	
+	// 	consolegames.value.push({
+	// 		id: consolegameId.value++,
+	// 		title: form.consolegame,
+	// 	});
+	// 	reset("game-form");
+	// }
 }
 
 const handleReset = () => {

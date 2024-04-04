@@ -1,6 +1,6 @@
 <script setup>
 // const ideas = useIdeas();
-const user = useUserSession();
+// const user = useUserSession();
 </script>
 
 <template>
