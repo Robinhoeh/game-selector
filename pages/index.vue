@@ -4,7 +4,7 @@
 		<div class="u-max-width-650" style="margin-inline: auto;">
 			<!-- Idea form component for logged in users -->
 			<section v-if="user.current.value" class="card u-margin-32">
-				<IdeasForm />
+				<!-- <IdeasForm /> -->
 			</section>
 
 			<section v-else class="card u-margin-32">
@@ -14,7 +14,7 @@
 					</p>
 				</div>
 			</section>
-			<IdeasList />
+			<!-- <IdeasList /> -->
 		</div>
 
 

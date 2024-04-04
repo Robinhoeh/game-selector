@@ -1,5 +1,5 @@
 <script setup>
-const ideas = useIdeas();
+// const ideas = useIdeas();
 const user = useUserSession();
 </script>
 

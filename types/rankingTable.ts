@@ -7,18 +7,20 @@ declare global {
   }
 
   interface PcGames1 {
-    id: number
-	  title: string
-	  count: number
+	id: number
+	title: string
+	count: number
   }
 
   interface PcGames2 {
-    id: number
-    title: string
+	id: number
+	title: string
+	count: number
   }
 
   interface ConsoleGames {
-    id: number
-    title: string
+	id: number
+	title: string
+	count: number
   }
 }
