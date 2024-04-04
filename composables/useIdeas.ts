@@ -1,7 +1,7 @@
 // composables/useIdeas.ts
 
 import { ID, Query, type Models} from "appwrite";
-import { database } from "~/appwrite";
+import { database } from "~/utils/appwrite";
 
 const ideasDatabaseId: string = import.meta.env.VITE_DATABASE_ID;
 const ideasCollectionId: string = import.meta.env.VITE_COLLECTION_ID;
@@ -10,7 +10,7 @@ const queryLimit: number = 10;
 interface Idea extends Models.Document{
     title: string;
     description: string;
-    userId: string;
+    userid: string;
 }
 
 const current = ref<Idea[] | null>(null); // Reference for the fetched data

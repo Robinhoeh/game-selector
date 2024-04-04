@@ -4,12 +4,13 @@ const ideas = useIdeas();
 const user = useUserSession();
 
 const handleAddIdea = async (event) => {
+	console.log(user.current.value);
 	const form = event.target;
 	const formData = new FormData(form);
 
 	// Extract the values from the FormData object and add userId
 	const postIdeaData = {
-		userId: user.current.value.userId,
+		userid: user.current.value.userId,
 		title: formData.get('title'),
 		description: formData.get('description'),
 	};

@@ -9,6 +9,7 @@ export default defineVitestConfig({
 		globals: true,
 		coverage: {
 			provider: 'istanbul'
-		}
+		},
+		
 	},
 })
