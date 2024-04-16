@@ -9,17 +9,18 @@ interface Game extends Models.Document {
 	id: number
 	game_title: string
 	count: number
+	userId: string
 }
 
 const current = ref<Game[] | null >(null)
 
 export const useGamesApi = () => {
 	console.log('is this running gameApi')
-	const  data  = async() => {
+	const fetch = async(): Promise<void> => {
 		const response = await database.listDocuments(
 			gamesDatabaseId,
 			gameCollectionId,
-			[query.orderDesc("$createdAt"), Query.limit(queryLimit)]
+			[Query.orderDesc("$createdAt"), Query.limit(queryLimit)]
 		)
 		current.value = response.documents as Game[]
 	}
@@ -36,14 +37,18 @@ export const useGamesApi = () => {
 		current.value = [response, ...current.value as Game[]].slice(0, 10) as Game[]
 	}
 		
-		// const { remove } = await useAsyncData('removegames', (id: string) => {
-		// 	await database.deleteDocument(gamesDatabaseId, gameCollectionId, id)
-		// 	await data() // refresh games to ensure we have 10 items
-		// })
+	const remove = async (id: string) => {
+		await database.deleteDocument(gamesDatabaseId, gameCollectionId, id)
+		await fetch() // refresh games to ensure we have 10 items
+		}
+	
+		fetch()
 	
 
-	return {
-		addGame,
-		data
+		return {
+			addGame,
+			current,
+			fetch,
+			remove
 	}
 }

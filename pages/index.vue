@@ -47,9 +47,12 @@
 		</section>
 		<section class="py-3 mb-6">
 			<h3 class="mb-6">Add your favorite games</h3>
-			<FormKit ref="game-form" id="game-form" type="form" @submit="handleSubmit" submit-label="submit game" v-model="formData">
+			<FormKit v-if="user.current.value" ref="game-form" id="game-form" type="form" @submit="handleSubmit" submit-label="submit game" v-model="formData">
 				<GameForm @reset="handleReset" :suffix-icon="isFormDirty" />
 			</FormKit>
+			<p v-else class="text-yellow-400">
+				Please login to submit a game.
+			</p>
 		</section>
 		<section class="py-8 mb-6">
 			<h3>Rankings</h3>
@@ -100,7 +103,12 @@ const handleSubmit = async (form: GameData, node: FormKitNode, user: any) => {
 	}
 	
 	if (node.value?.pcgame1) {
-		await games.addGame(postGameData)
+		await games.addGame(postGameData).then(() => {
+			// pcgames1.value.push(postGameData)
+			console.log(form)
+			reset(form);
+		})
+		
 	}
 	// block form submission if game already exists
 	// if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {

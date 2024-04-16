@@ -25,7 +25,9 @@ export const useUserSession = () =>  {
     // Check if already logged in to initialize the store.
     account.getSession('current').then((user: Models.Session) => {
         current.value = user;
-    });
+	});
+	
+	
 
     return {
         current,
