@@ -12,7 +12,7 @@ interface Game extends Models.Document {
 	userId: string
 }
 
-const current = ref<Game[] | null >(null)
+const current = ref<Game[] | null>(null)
 
 export const useGamesApi = () => {
 	console.log('is this running gameApi')
@@ -44,7 +44,6 @@ export const useGamesApi = () => {
 	
 		fetch()
 	
-
 		return {
 			addGame,
 			current,

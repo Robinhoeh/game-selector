@@ -1,7 +1,7 @@
 <template>
 	<div v-if="games.current.value && games.current.value.length">
 		<div v-for="game in games.current.value" :key="game.id">{{ game.game_title }}
-			{{ game.userId }} - {{ user.current.value.userId }}
+			{{ game.userId }} - {{ user.current.value?.userId }}
 			<UButton v-if="user.current.value && game.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(game.$id)" />
 		</div>
 
@@ -19,11 +19,12 @@
 		<UTable :rows="games?.current?.value" :columns="columns" class="ranking-table">
 			<template #actions-data="{row}">
 				<div class="flex flex-col">
-					<div>{{ row.game_title }} - {{ row.userId }}</div>
+					<!-- <div>{{ row.game_title }} - {{ row.userId }}</div> -->
 					<!-- <UButton icon="i-heroicons-star" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span> -->
 					<!-- </UButton> -->
-					<!-- {{ row.userId }} -->
-					<UButton v-if="user.current.value && row.$id === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
+					<!-- {{ row.game_title }} -->
+					<!-- {{ row.userId }} - {{ user.current.value?.userId }} -->
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
 				</div>
 			</template>
 		</UTable>
@@ -42,7 +43,7 @@ const user = useUserSession()
 
 try {
   const res = await account.get()
-  console.log(res)
+//   console.log(res)
 } catch (err) {
   console.log(err)
 }
