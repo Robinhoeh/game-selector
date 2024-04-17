@@ -1,38 +1,47 @@
 <template>
-	<div v-if="games.current.value && games.current.value.length">
-		<div v-for="game in games.current.value" :key="game.id">{{ game.game_title }}
-			{{ game.userId }} - {{ user.current.value?.userId }}
-			<UButton v-if="user.current.value && game.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(game.$id)" />
-		</div>
-
-	</div>
-	<UTable :rows="pcgames1" :columns="columns" data-testid="ranking-table" @select="handleUpVote" class="ranking-table">
-		<template #actions-data="{row}">
-			<div class="flex flex-col">
-				<UButton icon="i-heroicons-star" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
-				</UButton>
-			</div>
-		</template>
-
-	</UTable>
 	<template v-if="games?.current?.value && games?.current?.value.length">
-		<UTable :rows="games?.current?.value" :columns="columns" class="ranking-table">
+		<!-- create collection for games1 -->
+		<UTable :rows="games?.current?.value" :columns="columns" data-testid="ranking-table" @select="handleUpVote" class="ranking-table">
 			<template #actions-data="{row}">
 				<div class="flex flex-col">
-					<!-- <div>{{ row.game_title }} - {{ row.userId }}</div> -->
-					<!-- <UButton icon="i-heroicons-star" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span> -->
-					<!-- </UButton> -->
-					<!-- {{ row.game_title }} -->
-					<!-- {{ row.userId }} - {{ user.current.value?.userId }} -->
+					<p>{{ row.game_title }}</p>
+					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
+					</UButton>
 					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
 				</div>
 			</template>
 		</UTable>
 	</template>
-	<UTable :rows="consolegames" :columns="columns" class="ranking-table"></UTable>
+	<!-- create collection for games2 -->
+	<template v-if="games?.current?.value && games?.current?.value.length">
+		<UTable :rows="games?.current?.value" :columns="columns" class="ranking-table">
+			<template #actions-data="{row}">
+				<div class="flex flex-col">
+					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
+					</UButton>
+					{{ row.game_title }}
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
+				</div>
+			</template>
+		</UTable>
+	</template>
+	<!-- create collection for console games -->
+	<template v-if="games?.current?.value && games?.current?.value.length">
+		<UTable :rows="games?.current?.value" :columns="columns" class="ranking-table">
+			<template #actions-data="{ row }">
+				<div class="flex flex-col">
+					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
+					</UButton>
+					{{ row.game_title }}
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
+				</div>
+			</template>
+		</UTable>
+	</template>
+
 </template>
 
-<script setup lang="ts">
+	<script setup lang="ts">
 const { columns, pcgames1, pcgames2, consolegames } = useRankingTable();
 
 const { account } = useAppwrite()
@@ -70,21 +79,20 @@ const displayVoteCount = (id: number) => {
 </script>
 
 <style lang="postcss">
-.ranking-table {
-	table-layout: fixed;
-	min-width: 300px;
+	.ranking-table {
+		table-layout: fixed;
+		min-width: 300px;
 
-	thead th {
-		padding-left: 4px;
+		thead th {
+			padding-left: 4px;
+		}
 	}
-}
 
-tr td {
-  /* TODO: figure out how to remove tailwind forms */
-  @apply text-white px-1 py-0.5 !important;
-  max-width: 300px;
-  word-wrap: break-word!important;
-  overflow: hidden;
-}
-
+	tr td {
+		/* TODO: figure out how to remove tailwind forms */
+		@apply text-white px-1 py-0.5 !important;
+		max-width: 300px;
+		word-wrap: break-word !important;
+		overflow: hidden;
+	}
 </style>

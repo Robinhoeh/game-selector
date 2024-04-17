@@ -15,7 +15,6 @@ interface Game extends Models.Document {
 const current = ref<Game[] | null>(null)
 
 export const useGamesApi = () => {
-	console.log('is this running gameApi')
 	const fetch = async(): Promise<void> => {
 		const response = await database.listDocuments(
 			gamesDatabaseId,

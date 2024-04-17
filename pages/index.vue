@@ -1,27 +1,8 @@
 <template>
 	<NuxtLayout>
-
-		<div class="u-max-width-650" style="margin-inline: auto;">
-			<!-- Idea form component for logged in users -->
-			<section v-if="user.current.value" class="card u-margin-32">
-				<!-- <IdeasForm /> -->
-			</section>
-
-			<section v-else class="card u-margin-32">
-				<div class="container">
-					<p class="body-text-1" style="width: 100%;">
-						Please login to submit an idea.
-					</p>
-				</div>
-			</section>
-			<!-- <IdeasList /> -->
-		</div>
-
-
 		<h1 class="mb-b prose-1">Game Selector</h1>
 		<p class="mb-8">
-			Vote on your favorite games to be chosen for team play at the end of the
-			month.
+			Vote on your favorite games - Winner chosen each month
 		</p>
 
 		<section class="py-8">
@@ -85,8 +66,6 @@ const games = useGamesApi()
 const user = useUserSession()
 
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
-	
-
 	const postGameData = {
 		userId: user.current.value?.userId,
 		id: pcgame1Id.value++,
@@ -94,25 +73,30 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 		count: 0
 	}
 
-	// if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
-	// 	toast.add({
-	// 		title: "Game already exists",
-	// 		description: "Please enter a different game",
-	// 		status: "error",
-	// 		duration: 3000,
-	// 	});
-	// 	return
-	// }
-	
-	// if (node.value?.pcgame1) {
-		console.log(postGameData)
-		await games.addGame(postGameData).then(() => {
-			// pcgames1.value.push(postGameData)
-			console.log(form)
-			// reset(form);
-		})
+		const currentGames = games.current.value
+
+		if (node.value?.pcgame1 && currentGames?.find(game => game.game_title === form.pcgame1)) {
+			toast.add({
+				title: "Game already exists",
+				description: "Please enter a different game",
+				status: "error",
+				duration: 3000,
+			});
+			return false;
+		} else {
+			console.log(postGameData)
+			await games.addGame(postGameData).then(() => {
+				// pcgames1.value.push(postGameData)
+				console.log(form)
+				// reset(form);
+			})
+		}
+		// return true
 		
-	// }
+	}
+
+	
+
 	// block form submission if game already exists
 	// if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
 	// 	toast.add({
@@ -149,7 +133,7 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	// 	});
 	// 	reset("game-form");
 	// }
-}
+
 
 const handleReset = () => {
 	reset("game-form");
