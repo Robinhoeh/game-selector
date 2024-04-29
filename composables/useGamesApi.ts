@@ -25,17 +25,16 @@ export const useGamesApi = () => {
 			case 'pcgame1':
 				collectionId = gameCollectionId
 				break
-			case 'pcgame2':
-				collectionId = pcGames2CollectionId
-				break
-			case 'consolegame':
-				collectionId = consoleGamesCollectionId
-				console.log('collectionId', collectionId)
-				break
+			// case 'pcgame2':
+			// 	collectionId = pcGames2CollectionId
+			// 	break
+			// case 'consolegame':
+			// 	collectionId = consoleGamesCollectionId
+			// 	break
 		}
 		const response = await database.listDocuments(
 			gamesDatabaseId,
-			collectionId,
+			gameCollectionId,
 			[Query.orderDesc("$createdAt"), Query.limit(queryLimit)]
 		)
 		current.value = response.documents as Game[]
@@ -49,20 +48,18 @@ export const useGamesApi = () => {
 		switch(form.game_type) {
 			case 'pcgame1':
 				collectionId = gameCollectionId
-				break
-			case 'pcgame2':
-				collectionId = pcGames2CollectionId
-				break
-			case 'consolegame':
-				collectionId = gameCollectionId
-				console.log('collectionId', collectionId)
-				break
+			// 	break
+			// case 'pcgame2':
+			// 	collectionId = pcGames2CollectionId
+			// 	break
+			// case 'consolegame':
+			// 	collectionId = consoleGamesCollectionId
+			// 	break
 		}
 		try {
-			console.log(collectionId)
 			const response = await database.createDocument(
 				gamesDatabaseId,
-				collectionId,
+				gameCollectionId,
 				ID.unique(),
 				game
 			)
@@ -80,19 +77,19 @@ export const useGamesApi = () => {
 			case 'pcgame1':
 				collectionId = gameCollectionId
 				break
-			case 'pcgame2':
-				collectionId = pcGames2CollectionId
-				break
-			case 'consolegame':
-				collectionId = consoleGamesCollectionId
-				break
+			// case 'pcgame2':
+			// 	collectionId = pcGames2CollectionId
+			// 	break
+			// case 'consolegame':
+			// 	collectionId = consoleGamesCollectionId
+			// 	break
 		}
 
-		await database.deleteDocument(gamesDatabaseId, collectionId, id)
+		await database.deleteDocument(gamesDatabaseId, gameCollectionId, id)
 		await fetch(gameType) // refresh games to ensure we have 10 items
 	}
 	
-	fetch('pcgame2')
+	fetch('pcgame1')
 	
 	return {
 		addGame,
