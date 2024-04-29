@@ -57,7 +57,7 @@ const {
 	consolegameId
 } = useRankingTable();
 
-const form = ref<FormKitNode>();
+const form = ref<FormKitNode>(); 
 const formData = ref<GameData>();
 const toast = useToast();
 
@@ -66,6 +66,9 @@ const games = useGamesApi()
 const user = useUserSession()
 
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
+	// set game_type from form data
+	formData.value!.game_type = node.value?.game_type
+
 	const postGameData = {
 		userId: user.current.value?.userId,
 		id: pcgame1Id.value++,
@@ -73,7 +76,8 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 		count: 0
 	}
 
-		const currentGames = games.current.value
+	const currentGames = games.current.value
+		console.log(currentGames)
 
 		if (node.value?.pcgame1 && currentGames?.find(game => game.game_title === form.pcgame1)) {
 			toast.add({
@@ -84,8 +88,7 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 			});
 			return false;
 		} else {
-			console.log(postGameData)
-			await games.addGame(postGameData).then(() => {
+			await games.addGame(postGameData, form).then(() => {
 				// pcgames1.value.push(postGameData)
 				console.log(form)
 				// reset(form);
@@ -98,7 +101,7 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	
 
 	// block form submission if game already exists
-	// if (pcgames1.value.find(game => game.title === form.pcgame1) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
+	// if (pcgames1.value.find(game => game.title === form.pcgame2) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
 	// 	toast.add({
 	// 		title: "Game already exists",
 	// 		description: "Please enter a different game",
