@@ -1,6 +1,5 @@
 <template>
 	<template v-if="games?.current?.value && games?.current?.value.length">
-		<!-- create collection for games1 -->
 		<UTable :rows="games?.current?.value" :columns="columns" data-testid="ranking-table" @select="handleUpVote" class="ranking-table">
 			<template #actions-data="{row}">
 				<div class="flex flex-col">
@@ -12,7 +11,6 @@
 			</template>
 		</UTable>
 	</template>
-	<!-- create collection for games2 -->
 	<template v-if="games?.current?.value && games?.current?.value.length">
 		<UTable :rows="games?.current?.value" :columns="columns" class="ranking-table">
 			<template #actions-data="{row}">
@@ -25,7 +23,6 @@
 			</template>
 		</UTable>
 	</template>
-	<!-- create collection for console games -->
 	<template v-if="games?.current?.value && games?.current?.value.length">
 		<UTable :rows="games?.current?.value" :columns="columns" class="ranking-table">
 			<template #actions-data="{ row }">

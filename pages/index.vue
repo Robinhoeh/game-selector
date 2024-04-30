@@ -67,12 +67,13 @@ const user = useUserSession()
 
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	// set game_type from form data
-	formData.value!.game_type = node.value?.game_type
+	formData.value!.game_type = node.value?.pcgame1 ? "pcgame1" : node.value?.pcgame2 ? "pcgame2" : "consolegame";
+	console.log(formData.value?.game_type)
 
 	const postGameData = {
 		userId: user.current.value?.userId,
 		id: pcgame1Id.value++,
-		game_title: form.pcgame1,
+		game_title: formData.value?.game_type === "pcgame1" ? form.pcgame1 : formData.value?.game_type === "pcgame2" ? form.pcgame2 : form.consolegame,
 		count: 0
 	}
 
@@ -88,14 +89,10 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 			});
 			return false;
 		} else {
-			await games.addGame(postGameData, form).then(() => {
-				// pcgames1.value.push(postGameData)
-				console.log(form)
-				// reset(form);
-			})
-		}
-		// return true
-		
+			console.log(postGameData)
+			await games.addGame(postGameData, formData)
+			reset("game-form");
+		}		
 	}
 
 	

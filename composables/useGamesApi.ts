@@ -7,6 +7,7 @@ let gameCollectionId: string = import.meta.env.VITE_COLLECTION_ID
 let pcGames2CollectionId: string = import.meta.env.VITE_PC_GAMES2_COLLECTION_ID
 let consoleGamesCollectionId: string = import.meta.env.VITE_COLLECTION_ID_CONSOLE_GAMES
 const queryLimit: number = 10
+console.log('gamesDatabaseId', gameCollectionId, pcGames2CollectionId)
 
 interface Game extends Models.Document {
 	id: number
@@ -24,17 +25,18 @@ export const useGamesApi = () => {
 		switch(gameType) {
 			case 'pcgame1':
 				collectionId = gameCollectionId
+				console.log('collectionId', collectionId)
 				break
-			// case 'pcgame2':
-			// 	collectionId = pcGames2CollectionId
-			// 	break
-			// case 'consolegame':
-			// 	collectionId = consoleGamesCollectionId
-			// 	break
+			case 'pcgame2':
+				collectionId = pcGames2CollectionId
+				break
+			case 'consolegame':
+				collectionId = consoleGamesCollectionId
+				break
 		}
 		const response = await database.listDocuments(
 			gamesDatabaseId,
-			gameCollectionId,
+			collectionId,
 			[Query.orderDesc("$createdAt"), Query.limit(queryLimit)]
 		)
 		current.value = response.documents as Game[]
@@ -43,27 +45,27 @@ export const useGamesApi = () => {
 	// Add new game to the DB
 	// Change the value of the current object
 	const addGame = async (game: Game, form: GameData) => {
-		console.log('form', form)
+		console.log('form', form.value.game_type)
 		let collectionId = ''
-		switch(form.game_type) {
+		switch(form.value.game_type) {
 			case 'pcgame1':
 				collectionId = gameCollectionId
-			// 	break
-			// case 'pcgame2':
-			// 	collectionId = pcGames2CollectionId
-			// 	break
-			// case 'consolegame':
-			// 	collectionId = consoleGamesCollectionId
-			// 	break
+				break
+			case 'pcgame2':
+				collectionId = pcGames2CollectionId
+				break
+			case 'consolegame':
+				collectionId = consoleGamesCollectionId
+				break
 		}
 		try {
 			const response = await database.createDocument(
 				gamesDatabaseId,
-				gameCollectionId,
+				collectionId,
 				ID.unique(),
 				game
 			)
-			console.log('good', response)
+			console.log('current.value', current.value)
 			current.value = [response, ...current.value as Game[]].slice(0, 10) as Game[]
 		} 
 		catch(error) {
