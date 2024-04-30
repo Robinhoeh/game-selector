@@ -67,8 +67,7 @@ const user = useUserSession()
 
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	// set game_type from form data
-	formData.value!.game_type = node.value?.pcgame1 ? "pcgame1" : node.value?.pcgame2 ? "pcgame2" : "consolegame";
-	console.log(formData.value?.game_type)
+	formData.value!.game_type = node.value?.pcgame1 ? "pcgame1" : node.value?.pcgame2 ? "pcgame2" : "consolegame"
 
 	const postGameData = {
 		userId: user.current.value?.userId,
@@ -78,7 +77,6 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	}
 
 	const currentGames = games.current.value
-		console.log(currentGames)
 
 		if (node.value?.pcgame1 && currentGames?.find(game => game.game_title === form.pcgame1)) {
 			toast.add({
@@ -89,7 +87,6 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 			});
 			return false;
 		} else {
-			console.log(postGameData)
 			await games.addGame(postGameData, formData)
 			reset("game-form");
 		}		
