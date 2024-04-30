@@ -6,7 +6,7 @@
 					<p>{{ row.game_title }}</p>
 					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
 					</UButton>
-					<UButton v-if="user.current && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
+					<UButton v-if="user.current && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id)" />
 				</div>
 			</template>
 		</UTable>
@@ -18,7 +18,7 @@
 					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
 					</UButton>
 					{{ row.game_title }}
-					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id)" />
 				</div>
 			</template>
 		</UTable>
@@ -30,7 +30,7 @@
 					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
 					</UButton>
 					{{ row.game_title }}
-					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="games.remove(row.$id)" />
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id)" />
 				</div>
 			</template>
 		</UTable>
@@ -42,11 +42,10 @@
 const { columns, pcgames1,  } = useRankingTable();
 
 const { account } = useAppwrite()
-const { current, currentPcGames2, currentConsoleGames } = useGamesApi()
+const { current, currentPcGames2, currentConsoleGames, remove } = useGamesApi()
 
 // this will be useful for allowing user to delete their own games
 const user = useUserSession()
-
 
 try {
   const res = await account.get()

@@ -41,7 +41,6 @@ export const useGamesApi = () => {
 		gameType === 'pcgame1' ? current.value = response.documents as Game[] : ''
 		gameType === 'pcgame2' ? currentPcGames2.value = response.documents as Game[] : ''
 		gameType === 'consolegame' ? currentConsoleGames.value = response.documents as Game[] : ''
-		console.log(currentConsoleGames)
 	}
 
 	// Add new game to the DB
@@ -76,7 +75,7 @@ export const useGamesApi = () => {
 			console.log('error', error)
 		}
 	}
-		
+		// TODO fix this
 	const remove = async (id: string, game: Game, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
 		let collectionId = ''
 		switch(gameType) {
