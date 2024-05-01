@@ -73,7 +73,8 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 
 	const postGameData = {
 		userId: user.current.value?.userId,
-		id: pcgame1Id.value++,
+		// id: pcgame1Id.value++,
+		id: 2,
 		game_title: formData.value?.game_type === "pcgame1" ? form.pcgame1 : formData.value?.game_type === "pcgame2" ? form.pcgame2 : form.consolegame,
 		count: 0
 	}

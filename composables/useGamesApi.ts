@@ -73,6 +73,30 @@ export const useGamesApi = () => {
 			console.log('error', error)
 		}
 	}
+	// add one to count
+	// Change the value of the current object
+	const updateCount = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
+		console.log('updateCount', id, gameType)
+		let collectionId = ''
+		switch(gameType) {
+			case 'pcgame1':
+				collectionId = gameCollectionId
+				break
+			case 'pcgame2':
+				collectionId = pcGames2CollectionId
+				break
+			case 'consolegame':
+				collectionId = consoleGamesCollectionId
+				break
+		}
+		const game = current.value?.find((game) => game.$id === id)
+		if(game) {
+			game.count += 1
+			await database.updateDocument(gamesDatabaseId, collectionId, id, game)
+			fetch(gameType)
+		}
+	}
+
 	const remove = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
 		let collectionId = ''
 		switch(gameType) {
@@ -103,6 +127,7 @@ export const useGamesApi = () => {
 		currentPcGames2,
 		currentConsoleGames,
 		fetch,
+		updateCount,
 		remove,
 	}
 }
