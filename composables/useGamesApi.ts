@@ -67,16 +67,14 @@ export const useGamesApi = () => {
 			)
 			collectionId === gameCollectionId ? current.value = [response, ...current.value as Game[]].slice(0, 10) as Game[] : ''
 			collectionId === pcGames2CollectionId ? currentPcGames2.value = [response, ...currentPcGames2.value as Game[]].slice(0, 10) as Game[] : ''
-			collectionId === consoleGamesCollectionId ? currentConsoleGames.value = [response, ...currentConsoleGames.value as Game[]].slice(0, 10) as Game[] : ''
-			// current.value = [response, ...current.value as Game[]].slice(0, 10) as Game[]
-			
+			collectionId === consoleGamesCollectionId ? currentConsoleGames.value = [response, ...currentConsoleGames.value as Game[]].slice(0, 10) as Game[] : ''			
 		} 
 		catch(error) {
 			console.log('error', error)
 		}
 	}
 		// TODO fix this
-	const remove = async (id: string, game: Game, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
+	const remove = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
 		let collectionId = ''
 		switch(gameType) {
 			case 'pcgame1':
@@ -91,7 +89,9 @@ export const useGamesApi = () => {
 		}
 
 		await database.deleteDocument(gamesDatabaseId, collectionId, id)
-		await fetch(gameType) // refresh games to ensure we have 10 items
+		await fetch('pcgame1') // refresh games to ensure we have 10 items
+		await fetch('pcgame2')
+		await fetch('consolegame')
 	}
 	
 	fetch('pcgame1')
