@@ -38,7 +38,7 @@
 		<section class="py-8 mb-6">
 			<h3>Rankings</h3>
 			<div class="flex justify-between">
-				<RankingTable />
+				<RankingTable :loading="isLoading"/>
 			</div>
 		</section>
 	</NuxtLayout>
@@ -60,12 +60,14 @@ const {
 const form = ref<FormKitNode>(); 
 const formData = ref<GameData>();
 const toast = useToast();
-
+const isLoading = ref(false);
 
 const games = useGamesApi()
 const user = useUserSession()
 
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
+	isLoading.value = true;
+	
 	// set game_type from form data
 	formData.value!.game_type = node.value?.pcgame1 ? "pcgame1" : node.value?.pcgame2 ? "pcgame2" : "consolegame"
 
@@ -88,6 +90,7 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 			return false;
 		} else {
 			await games.addGame(postGameData, formData)
+			isLoading.value = false;
 			reset("game-form");
 		}		
 	}
@@ -175,9 +178,4 @@ useHead({
 .formkit-wrapper button {
   @apply bg-blue-500 text-white p-3 mt-5;
 }
-
-article.box {
-	background-color: hsl(var(--color-neutral-0));
-}
-
 </style>

@@ -73,7 +73,6 @@ export const useGamesApi = () => {
 			console.log('error', error)
 		}
 	}
-		// TODO fix this
 	const remove = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
 		let collectionId = ''
 		switch(gameType) {
@@ -105,6 +104,5 @@ export const useGamesApi = () => {
 		currentConsoleGames,
 		fetch,
 		remove,
-			
 	}
 }

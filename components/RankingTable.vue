@@ -1,9 +1,11 @@
 <template>
 	<template v-if="current && current?.length">
-		<UTable :rows="current" :columns="columns" data-testid="ranking-table" @select="handleUpVote" class="ranking-table">
+		<UTable :rows="current" :columns="columns" data-testid="ranking-table" class="ranking-table" :loading="loading">
+			<template #title-data="{row}">
+				<p>{{ row.game_title }}</p>
+			</template>
 			<template #actions-data="{row}">
-				<div class="flex flex-col">
-					<p>{{ row.game_title }}</p>
+				<div class="flex">
 					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
 					</UButton>
 					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame1')" />
@@ -12,24 +14,28 @@
 		</UTable>
 	</template>
 	<template v-if="currentPcGames2 && currentPcGames2.length">
-		<UTable :rows="currentPcGames2" :columns="columns" class="ranking-table">
+		<UTable :rows="currentPcGames2" :columns="columns" class="ranking-table" :loading="loading">
+			<template #title-data="{ row }">
+				<p>{{ row.game_title }}</p>
+			</template>
 			<template #actions-data="{row}">
-				<div class="flex flex-col">
-					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
+				<div class="flex">
+					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="handleUpVote(row.id)"><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
 					</UButton>
-					{{ row.game_title }}
 					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame2')" />
 				</div>
 			</template>
 		</UTable>
 	</template>
 	<template v-if="currentConsoleGames && currentConsoleGames.length">
-		<UTable :rows="currentConsoleGames" :columns="columns" class="ranking-table">
+		<UTable :rows="currentConsoleGames" :columns="columns" class="ranking-table" :loading="loading">
+			<template #title-data="{ row }">
+				<p>{{ row.game_title }}</p>
+			</template>
 			<template #actions-data="{ row }">
-				<div class="flex flex-col">
+				<div class="flex">
 					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square><span class="mt-[2px]">{{ displayVoteCount(row.id) }}</span>
 					</UButton>
-					{{ row.game_title }}
 					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'consolegame')" />
 				</div>
 			</template>
@@ -38,33 +44,42 @@
 
 </template>
 
-	<script setup lang="ts">
-const { columns, pcgames1,  } = useRankingTable();
+<script setup lang="ts">
+interface Props {
+	loading?: boolean
+}
+defineProps<Props>()
 
-const { account } = useAppwrite()
+const columns = [
+	{
+		key: "id",
+		label: "#",
+	},
+	{
+		key: "title",
+		label: "Game title",
+	},
+	{
+		key: "actions",
+	},
+];
+
 const { current, currentPcGames2, currentConsoleGames, remove } = useGamesApi()
 
-// this will be useful for allowing user to delete their own games
 const user = useUserSession()
-
-try {
-  const res = await account.get()
-//   console.log(res)
-} catch (err) {
-  console.log(err)
-}
 
 const voteCount = ref({})
 
 const handleUpVote = (row: any) => {
-	
-	const index = pcgames1.value.findIndex((game: any) => game.id === row.id);
-	
+console.log(row)
+
+	const index = currentPcGames2.findIndex((game: any) => game.id === row.id);
+
 	if (index !== -1) {
-		pcgames1.value[index].count++
+		currentPcGames2.value[index].count++
 		voteCount.value = {
 			...voteCount.value,
-			[row.id]: pcgames1.value[index].count
+			[row.id]: currentPcGames2.value[index].count
 		}	
 	}
 };

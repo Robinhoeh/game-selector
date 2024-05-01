@@ -82,8 +82,8 @@ defineEmits(['reset'])
 
 .formkit-icon svg {
 	width: 12px;
-  position: absolute;
-  top: 6px;
-  right: 8px;
+	position: absolute;
+	top: 6px;
+	right: 8px;
 }
 </style>
