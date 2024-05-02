@@ -1,11 +1,12 @@
-import { Client, Databases, Account } from "appwrite";
+import { Client, Databases, Account } from "appwrite"
 
-const url: string = import.meta.env.VITE_APPWRITE_ENDPOINT;
-const project: string = import.meta.env.VITE_APPWRITE_PROJECT;
+const url: string = import.meta.env.VITE_APPWRITE_ENDPOINT
+const project: string = import.meta.env.VITE_APPWRITE_PROJECT
 
-const client: Client = new Client();
+const client: Client = new Client()
 
-client.setEndpoint(url).setProject(project);
+client
+	.setEndpoint(url).setProject(project)
 
-export const account: Account = new Account(client);
-export const database: Databases = new Databases(client);
+export const account: Account = new Account(client)
+export const database: Databases = new Databases(client)

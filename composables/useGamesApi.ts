@@ -1,6 +1,5 @@
-import { ID, Query,  type Models } from "appwrite"
+import { ID, Query, type Models } from "appwrite"
 import { database } from "~/utils/appwrite"
-
 
 const gamesDatabaseId: string = import.meta.env.VITE_DATABASE_ID
 let gameCollectionId: string = import.meta.env.VITE_COLLECTION_ID
@@ -75,27 +74,69 @@ export const useGamesApi = () => {
 	}
 	// add one to count
 	// Change the value of the current object
-	const updateCount = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
-		console.log('updateCount', id, gameType)
-		let collectionId = ''
-		switch(gameType) {
-			case 'pcgame1':
-				collectionId = gameCollectionId
-				break
-			case 'pcgame2':
-				collectionId = pcGames2CollectionId
-				break
-			case 'consolegame':
-				collectionId = consoleGamesCollectionId
-				break
-		}
-		const game = current.value?.find((game) => game.$id === id)
-		if(game) {
-			game.count += 1
-			await database.updateDocument(gamesDatabaseId, collectionId, id, game)
-			fetch(gameType)
-		}
-	}
+	const getDocumentIdAndUpdateCount = async (gameType: 'pcgame1' | 'pcgame2' | 'consolegame', uniqueAttribute: string) => {
+    let collectionId = '';
+    switch (gameType) {
+        case 'pcgame1':
+            collectionId = gameCollectionId;
+            break;
+        case 'pcgame2':
+            collectionId = pcGames2CollectionId;
+            break;
+        case 'consolegame':
+            collectionId = consoleGamesCollectionId;
+            break;
+    }
+
+    try {
+        // Fetch the document by a unique attribute, for example, the game title
+        const result = await database.listDocuments(gamesDatabaseId, collectionId, [Query.equal('game_title', uniqueAttribute)]);
+        if (result.documents.length === 0) {
+            console.error("No document found with the identifier:", uniqueAttribute);
+            return;
+        }
+
+        // Get the first document found
+		const document = result.documents[0];
+		console.log('document', document)
+        
+        // Now that we have the document, update its count
+        updateCount(document.$id, gameType);
+    } catch (error) {
+        console.error('Failed to fetch document:', error);
+    }
+}
+
+// Update the count by incrementing it
+const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' | 'consolegame') => {
+    let collectionId = '';
+    switch (gameType) {
+        case 'pcgame1':
+            collectionId = gameCollectionId;
+            break;
+        case 'pcgame2':
+            collectionId = pcGames2CollectionId;
+            break;
+        case 'consolegame':
+            collectionId = consoleGamesCollectionId;
+            break;
+    }
+
+    try {
+        // Fetch the current document to get the current count
+        const document = await database.getDocument(gamesDatabaseId, collectionId, documentId);
+        const newCount = (document.count || 0) + 1;
+
+        // Update the document with the new count
+        await database.updateDocument(gamesDatabaseId, collectionId, documentId, { count: newCount });
+        console.log('Document updated with new count:', newCount);
+
+        // Optionally, refresh or display the updated data
+        fetch(gameType);
+    } catch (error) {
+        console.error('Failed to update count:', error);
+    }
+}
 
 	const remove = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
 		let collectionId = ''
@@ -128,6 +169,7 @@ export const useGamesApi = () => {
 		currentConsoleGames,
 		fetch,
 		updateCount,
+		getDocumentIdAndUpdateCount,
 		remove,
 	}
 }

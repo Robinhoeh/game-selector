@@ -21,9 +21,10 @@ export default defineNuxtConfig({
 	'@formkit/nuxt',
 	'@nuxt/ui',
 	'nuxt-appwrite',
-],
+	],
 
 appwrite: {
+	appwritekey: process.env.APPWRITE_API_KEY,
 	endpoint:'https://cloud.appwrite.io/v1',
 	project:'6602292422ff13d3f84d'
 },
