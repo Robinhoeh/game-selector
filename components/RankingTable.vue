@@ -6,7 +6,7 @@
 			</template>
 			<template #actions-data="{row}">
 				<div class="flex">
-					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame1')"><span class="mt-[2px]">{{ row.count }}</span>
+					<UButton :loading="isCountLoading" icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame1')"><span class="mt-[2px]">{{ row.count }}</span>
 					</UButton>
 					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame1')" />
 				</div>
@@ -50,11 +50,9 @@ interface Props {
 }
 defineProps<Props>()
 
+
+
 const columns = [
-	{
-		key: "id",
-		label: "#",
-	},
 	{
 		key: "title",
 		label: "Game title",
@@ -64,7 +62,7 @@ const columns = [
 	},
 ];
 
-const { current, currentPcGames2, currentConsoleGames, remove , updateCount} = useGamesApi()
+const { current, currentPcGames2, currentConsoleGames, remove , updateCount, isCountLoading} = useGamesApi()
 
 const user = useUserSession()
 

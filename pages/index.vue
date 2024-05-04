@@ -38,7 +38,7 @@
 		<section class="py-8 mb-6">
 			<h3>Rankings</h3>
 			<div class="flex justify-between">
-				<RankingTable :loading="isLoading"/>
+				<RankingTable :loading="isLoading" />
 			</div>
 		</section>
 	</NuxtLayout>
@@ -61,6 +61,7 @@ const form = ref<FormKitNode>();
 const formData = ref<GameData>();
 const toast = useToast();
 const isLoading = ref(false);
+const isCountLoading = ref(false);
 
 const games = useGamesApi()
 const {current, currentPcGames2, currentConsoleGames} = useGamesApi()
@@ -75,27 +76,30 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	const postGameData = {
 		userId: user.current.value?.userId,
 		// id: pcgame1Id.value++,
-		id: 2,
+		// id: index.value ++,
 		game_title: formData.value?.game_type === "pcgame1" ? form.pcgame1 : formData.value?.game_type === "pcgame2" ? form.pcgame2 : form.consolegame,
 		count: 0
 	}
 
 	const currentGames = games.current.value
 
-		if (node.value?.pcgame1 && currentGames?.find(game => game.game_title === form.pcgame1)) {
+	if (node.value?.pcgame1 && currentGames?.find(game => game.game_title === form.pcgame1)) {
+			
 			toast.add({
 				title: "Game already exists",
 				description: "Please enter a different game",
 				status: "error",
 				duration: 3000,
 			});
+			
 			return false;
-		} else {
+	} else {
 			await games.addGame(postGameData, formData)
 			isLoading.value = false;
 			reset("game-form");
-		}		
+		}	
 	}
+	
 
 	
 

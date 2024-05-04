@@ -1,4 +1,5 @@
 import { ID, Query, type Models } from "appwrite"
+import { is } from "date-fns/locale"
 import { database } from "~/utils/appwrite"
 
 const gamesDatabaseId: string = import.meta.env.VITE_DATABASE_ID
@@ -72,41 +73,8 @@ export const useGamesApi = () => {
 			console.log('error', error)
 		}
 	}
-	// add one to count
-	// Change the value of the current object
-	const getDocumentIdAndUpdateCount = async (gameType: 'pcgame1' | 'pcgame2' | 'consolegame', uniqueAttribute: string) => {
-    let collectionId = '';
-    switch (gameType) {
-        case 'pcgame1':
-            collectionId = gameCollectionId;
-            break;
-        case 'pcgame2':
-            collectionId = pcGames2CollectionId;
-            break;
-        case 'consolegame':
-            collectionId = consoleGamesCollectionId;
-            break;
-    }
 
-    try {
-        // Fetch the document by a unique attribute, for example, the game title
-        const result = await database.listDocuments(gamesDatabaseId, collectionId, [Query.equal('game_title', uniqueAttribute)]);
-        if (result.documents.length === 0) {
-            console.error("No document found with the identifier:", uniqueAttribute);
-            return;
-        }
-
-        // Get the first document found
-		const document = result.documents[0];
-		console.log('document', document)
-        
-        // Now that we have the document, update its count
-        updateCount(document.$id, gameType);
-    } catch (error) {
-        console.error('Failed to fetch document:', error);
-    }
-}
-
+const isCountLoading = ref(false)
 // Update the count by incrementing it
 const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' | 'consolegame') => {
     let collectionId = '';
@@ -123,12 +91,14 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
     }
 
     try {
-        // Fetch the current document to get the current count
+		// Fetch the current document to get the current count
+		isCountLoading.value = true;
         const document = await database.getDocument(gamesDatabaseId, collectionId, documentId);
         const newCount = (document.count || 0) + 1;
 
         // Update the document with the new count
-        await database.updateDocument(gamesDatabaseId, collectionId, documentId, { count: newCount });
+		await database.updateDocument(gamesDatabaseId, collectionId, documentId, { count: newCount });
+		isCountLoading.value = false;
         console.log('Document updated with new count:', newCount);
 
         // Optionally, refresh or display the updated data
@@ -169,7 +139,7 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
 		currentConsoleGames,
 		fetch,
 		updateCount,
-		getDocumentIdAndUpdateCount,
+		isCountLoading,
 		remove,
 	}
 }
