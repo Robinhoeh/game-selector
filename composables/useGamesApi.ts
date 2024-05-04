@@ -108,6 +108,7 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
     }
 }
 
+	const isRemoveLoading = ref(false)
 	const remove = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
 		let collectionId = ''
 		switch(gameType) {
@@ -122,10 +123,12 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
 				break
 		}
 
+		isRemoveLoading.value = true
 		await database.deleteDocument(gamesDatabaseId, collectionId, id)
 		await fetch('pcgame1') // refresh games to ensure we have 10 items
 		await fetch('pcgame2')
 		await fetch('consolegame')
+		isRemoveLoading.value = false
 	}
 	
 	fetch('pcgame1')
@@ -140,6 +143,7 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
 		fetch,
 		updateCount,
 		isCountLoading,
+		isRemoveLoading,
 		remove,
 	}
 }
