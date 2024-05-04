@@ -14,11 +14,11 @@
 				</div>
 				<div class="min-h-36">
 					<img src="" alt="" />
-					<p class="w-[300px] break-words">{{ pcgames2[0]?.title || "Top Rated PC game 2" }}</p>
+					<p class="w-[300px] break-words">{{ highestRankedPcgame2|| "Top Rated PC game 2" }}</p>
 				</div>
 				<div class="min-h-36">
 					<img src="" alt="" />
-					<p class="w-[300px] break-words">{{ consolegames[0]?.title || 'Top Rated Console game' }}</p>
+					<p class="w-[300px] break-words">{{ highestRankedConsoleGame || 'Top Rated Console game' }}</p>
 				</div>
 			</div>
 		</section>
@@ -63,6 +63,7 @@ const toast = useToast();
 const isLoading = ref(false);
 
 const games = useGamesApi()
+const {current, currentPcGames2, currentConsoleGames} = useGamesApi()
 const user = useUserSession()
 
 const handleSubmit = async (form: GameData, node: FormKitNode) => {
@@ -149,16 +150,30 @@ const isFormDirty = computed(() => {
 
 
 
-const highestRankedPcgame1 = ref('')
-const findHighestCount = () => {
-  const highestCount = Math.max(...pcgames1.value.map(game => game.count))
-  const highestRankedGame = pcgames1.value.find(game => game.count === highestCount)
-  highestRankedPcgame1.value = highestRankedGame?.title
-}
-
-watchEffect(() => {
-	findHighestCount()
+const highestRankedPcgame1 = computed(() => {
+	if (current.value) {
+		const highest = current.value.reduce((prev, current) => (prev.count > current.count) ? prev : current)
+		return highest.game_title
+	}
 })
+
+const highestRankedPcgame2 = computed(() => {
+	if(currentPcGames2.value) {
+		const highest = currentPcGames2.value.reduce((prev, current) => (prev.count > current.count) ? prev : current)
+		return highest.game_title
+	}
+})
+
+const highestRankedConsoleGame = computed(() => {
+	if(currentConsoleGames.value) {
+		const highest = currentConsoleGames.value.reduce((prev, current) => (prev.count > current.count) ? prev : current)
+		return highest.game_title
+	}
+})
+
+// watchEffect(() => {
+// 	findHighestCount()
+// })
 
 onMounted(() => {
 	form.value = getNode("game-form");
