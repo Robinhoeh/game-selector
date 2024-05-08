@@ -1,42 +1,51 @@
 <template>
 	<template v-if="current && current?.length">
 		<UTable :rows="current" :columns="columns" data-testid="ranking-table" class="ranking-table" :loading="loading">
+			<template #order-data="{ index }">
+				{{ index + 1 }}
+			</template>
 			<template #title-data="{row}">
 				<p>{{ row.game_title }}</p>
 			</template>
 			<template #actions-data="{row}">
 				<div class="flex">
-					<UButton :loading="isCountLoading" icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame1')"><span class="mt-[2px]">{{ row.count }}</span>
+					<UButton key :loading="isCountLoading" icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame1')"><span class="mt-[2px]">{{ row.count }}</span>
 					</UButton>
-					<UButton v-if="user.current.value && row.userId === user.current.value.userId" :loading="isRemoveLoading" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame1')" />
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" :loading="removeLoadingStates[row.$id]" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame1')" />
 				</div>
 			</template>
 		</UTable>
 	</template>
 	<template v-if="currentPcGames2 && currentPcGames2.length">
 		<UTable :rows="currentPcGames2" :columns="columns" class="ranking-table" :loading="loading">
+			<template #order-data="{ index }">
+				{{ index + 1 }}
+			</template>
 			<template #title-data="{ row }">
 				<p>{{ row.game_title }}</p>
 			</template>
 			<template #actions-data="{row}">
 				<div class="flex">
-					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame2')"><span class="mt-[2px]">{{ row.count }}</span>
+					<UButton :loading="isCountLoading" icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame2')"><span class="mt-[2px]">{{ row.count }}</span>
 					</UButton>
-					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame2')" />
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" :loading="removeLoadingStates[row.$id]" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame2')" />
 				</div>
 			</template>
 		</UTable>
 	</template>
 	<template v-if="currentConsoleGames && currentConsoleGames.length">
 		<UTable :rows="currentConsoleGames" :columns="columns" class="ranking-table" :loading="loading">
+			<template #order-data="{index}">
+				{{ index + 1 }}
+			</template>
 			<template #title-data="{ row }">
 				<p>{{ row.game_title }}</p>
 			</template>
 			<template #actions-data="{ row }">
 				<div class="flex">
-					<UButton icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'consolegame')"><span class="mt-[2px]">{{ row.count }}</span>
+					<UButton :loading="isCountLoading" icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'consolegame')"><span class="mt-[2px]">{{ row.count }}</span>
 					</UButton>
-					<UButton v-if="user.current.value && row.userId === user.current.value.userId" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'consolegame')" />
+					<UButton v-if="user.current.value && row.userId === user.current.value.userId" :loading="removeLoadingStates[row.$id]" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'consolegame')" />
 				</div>
 			</template>
 		</UTable>
@@ -50,9 +59,12 @@ interface Props {
 }
 defineProps<Props>()
 
-
-
 const columns = [
+	{
+		key: "order",
+		label: "#",
+		index: 0
+	},
 	{
 		key: "title",
 		label: "Game title",
@@ -62,7 +74,7 @@ const columns = [
 	},
 ];
 
-const { current, currentPcGames2, currentConsoleGames, remove , updateCount, isCountLoading, isRemoveLoading} = useGamesApi()
+const { current, currentPcGames2, currentConsoleGames, remove, updateCount, isCountLoading, removeLoadingStates } = useGamesApi()
 
 const user = useUserSession()
 

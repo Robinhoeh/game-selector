@@ -107,9 +107,17 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
         console.error('Failed to update count:', error);
     }
 }
+	// loading states for each row id
+const removeLoadingStates = ref<Array<boolean>>([])
 
-	const isRemoveLoading = ref(false)
+// Function to set loading state for a specific row id
+const setRemoveLoadingState = (id: string, value: boolean) => {
+    removeLoadingStates.value[id] = value
+}
+
+	// const isRemoveLoading = ref(false)
 	const remove = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
+		
 		let collectionId = ''
 		switch(gameType) {
 			case 'pcgame1':
@@ -122,13 +130,13 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
 				collectionId = consoleGamesCollectionId
 				break
 		}
-
-		isRemoveLoading.value = true
+		
+		 setRemoveLoadingState(id, true)
 		await database.deleteDocument(gamesDatabaseId, collectionId, id)
 		await fetch('pcgame1') // refresh games to ensure we have 10 items
 		await fetch('pcgame2')
 		await fetch('consolegame')
-		isRemoveLoading.value = false
+		 setRemoveLoadingState(id, false)
 	}
 	
 	fetch('pcgame1')
@@ -143,7 +151,7 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
 		fetch,
 		updateCount,
 		isCountLoading,
-		isRemoveLoading,
+		removeLoadingStates,
 		remove,
 	}
 }
