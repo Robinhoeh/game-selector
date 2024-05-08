@@ -1,4 +1,5 @@
 import { ID, Query, type Models } from "appwrite"
+import { set } from "date-fns"
 import { is } from "date-fns/locale"
 import { database } from "~/utils/appwrite"
 
@@ -74,9 +75,15 @@ export const useGamesApi = () => {
 		}
 	}
 
-const isCountLoading = ref(false)
+	const countLoadingState = ref<Array<boolean>>([])
+	const setCountLoadingState = (id: string, value: boolean) => {
+		countLoadingState.value[id] = value
+	}
+
+
 // Update the count by incrementing it
-const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' | 'consolegame') => {
+	const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' | 'consolegame') => {
+	console.log(documentId)
     let collectionId = '';
     switch (gameType) {
         case 'pcgame1':
@@ -92,17 +99,18 @@ const updateCount = async (documentId: string, gameType: 'pcgame1' | 'pcgame2' |
 
     try {
 		// Fetch the current document to get the current count
-		isCountLoading.value = true;
+		setCountLoadingState(documentId, true)
         const document = await database.getDocument(gamesDatabaseId, collectionId, documentId);
         const newCount = (document.count || 0) + 1;
 
         // Update the document with the new count
 		await database.updateDocument(gamesDatabaseId, collectionId, documentId, { count: newCount });
-		isCountLoading.value = false;
+		setCountLoadingState(documentId, false)
         console.log('Document updated with new count:', newCount);
 
         // Optionally, refresh or display the updated data
-        fetch(gameType);
+		fetch(gameType);
+		setCountLoadingState(documentId, false)
     } catch (error) {
         console.error('Failed to update count:', error);
     }
@@ -115,9 +123,7 @@ const setRemoveLoadingState = (id: string, value: boolean) => {
     removeLoadingStates.value[id] = value
 }
 
-	// const isRemoveLoading = ref(false)
 	const remove = async (id: string, gameType: 'pcgame1' | "pcgame2" | "consolegame") => {
-		
 		let collectionId = ''
 		switch(gameType) {
 			case 'pcgame1':
@@ -133,9 +139,15 @@ const setRemoveLoadingState = (id: string, value: boolean) => {
 		
 		 setRemoveLoadingState(id, true)
 		await database.deleteDocument(gamesDatabaseId, collectionId, id)
-		await fetch('pcgame1') // refresh games to ensure we have 10 items
-		await fetch('pcgame2')
-		await fetch('consolegame')
+		if (gameType === 'pcgame1') {
+			await fetch('pcgame1') // refresh games to ensure we have 10 items
+		}
+		if (gameType === 'pcgame2') {
+			await fetch('pcgame2') // refresh games to ensure we have 10 items
+		}
+		if (gameType === 'consolegame') {
+			await fetch('consolegame') // refresh games to ensure we have 10 items
+		}
 		 setRemoveLoadingState(id, false)
 	}
 	
@@ -150,7 +162,7 @@ const setRemoveLoadingState = (id: string, value: boolean) => {
 		currentConsoleGames,
 		fetch,
 		updateCount,
-		isCountLoading,
+		countLoadingState,
 		removeLoadingStates,
 		remove,
 	}
