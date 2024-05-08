@@ -26,7 +26,7 @@
 			</template>
 			<template #actions-data="{row}">
 				<div class="flex">
-					<UButton :loading="countLoadingState[row.$id]" icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame2')"><span class="mt-[2px]">{{ row.count }}</span>
+					<UButton :loading="countLoadingState[row.$id]" icon="i-heroicons-heart" size="2xs" color="yellow" variant="ghost" data-testid="upvote" square @click="updateCount(row.$id, 'pcgame2')"><span class="mt-[2px]">{{ countLoadingState[row.$id] ? '...' : row.count }}</span>
 					</UButton>
 					<UButton v-if="user.current.value && row.userId === user.current.value.userId" :loading="removeLoadingStates[row.$id]" color="red" square icon="i-heroicons-trash" size="2xs" @click="remove(row.$id, 'pcgame2')" />
 				</div>

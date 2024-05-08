@@ -105,7 +105,7 @@ export const useGamesApi = () => {
 
         // Update the document with the new count
 		await database.updateDocument(gamesDatabaseId, collectionId, documentId, { count: newCount });
-		setCountLoadingState(documentId, false)
+		// setCountLoadingState(documentId, false)
         console.log('Document updated with new count:', newCount);
 
         // Optionally, refresh or display the updated data
