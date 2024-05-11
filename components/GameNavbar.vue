@@ -5,7 +5,7 @@ console.log(user)
 </script>
 
 <template>
-	<div v-if="!user.current">
+	<div>
 		<!--- Navbar -->
 		<nav class="p-8 main-header u-padding-inline-end-0">
 			<h3 class="u-stretch eyebrow-heading-1">Game Selector</h3>
