@@ -4,27 +4,26 @@
 		<p class="mb-8">
 			Vote on your favorite games - Winner chosen each month
 		</p>
-
 		<section class="py-8">
+			<h3>Countdown to end of month</h3>
+			<CountdownClock />
+		</section>
+		<section class="p-2 py-8">
 			<h3 class="pb-8">Leader Board</h3>
-			<div class="flex justify-between">
+			<div class="flex justify-between p-4 border border-red-200 border-dotted">
 				<div class="min-h-36">
 					<img src="" alt="" />
 					<p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
 				</div>
 				<div class="min-h-36">
 					<img src="" alt="" />
-					<p class="w-[300px] break-words">{{ highestRankedPcgame2|| "Top Rated PC game 2" }}</p>
+					<p class="w-[300px] break-words">{{ highestRankedPcgame2 || "Top Rated PC game 2" }}</p>
 				</div>
 				<div class="min-h-36">
 					<img src="" alt="" />
 					<p class="w-[300px] break-words">{{ highestRankedConsoleGame || 'Top Rated Console game' }}</p>
 				</div>
 			</div>
-		</section>
-		<section class="py-8">
-			<h3>Countdown to end of month</h3>
-			<CountdownClock />
 		</section>
 		<section class="py-3 mb-6">
 			<h3 class="mb-6">Add your favorite games</h3>
@@ -61,7 +60,6 @@ const form = ref<FormKitNode>();
 const formData = ref<GameData>();
 const toast = useToast();
 const isLoading = ref(false);
-const isCountLoading = ref(false);
 
 const games = useGamesApi()
 const {current, currentPcGames2, currentConsoleGames} = useGamesApi()
@@ -82,64 +80,29 @@ const handleSubmit = async (form: GameData, node: FormKitNode) => {
 	}
 
 	const currentGames = games.current.value
+	const currentPcGames2 = games.currentPcGames2.value
+	const currentConsoleGames = games.currentConsoleGames.value
 
-	if (node.value?.pcgame1 && currentGames?.find(game => game.game_title === form.pcgame1)) {
-			
-			toast.add({
-				title: "Game already exists",
-				description: "Please enter a different game",
-				status: "error",
-				duration: 3000,
-			});
-			
-			return false;
+	if (
+		node.value?.pcgame1 && currentGames?.find(game => game.game_title === form.pcgame1
+		) || node.value?.pcgame2 && currentPcGames2?.find(game => game.game_title === form.pcgame2
+		) || node.value?.consolegame && currentConsoleGames?.find(game => game.game_title === form.consolegame
+		)) {
+		toast.add({
+			title: "Game already exists",
+			description: "Please enter a different game",
+			status: "error",
+			duration: 1000,
+		})
+		isLoading.value = false;
+		reset("game-form")
+		return false;
 	} else {
 			await games.addGame(postGameData, formData)
 			isLoading.value = false;
 			reset("game-form");
 		}	
 	}
-	
-
-	
-
-	// block form submission if game already exists
-	// if (pcgames1.value.find(game => game.title === form.pcgame2) || pcgames2.value.find(game => game.title === form.pcgame2) || consolegames.value.find(game => game.title === form.consolegame)) {
-	// 	toast.add({
-	// 		title: "Game already exists",
-	// 		description: "Please enter a different game",
-	// 		status: "error",
-	// 		duration: 3000,
-	// 	});
-	// 	return
-	// }
-
-	
-	// if (node.value?.pcgame1) {
-	// 	pcgames1.value.push({
-	// 		id: pcgame1Id.value++,
-	// 		title: form.pcgame1,
-	// 		count: 0
-	// 	});
-	// 	reset("game-form");
-	// } 
-
-	// if (node.value?.pcgame2) {
-	// 	pcgames2.value.push({
-	// 		id: pcgame2Id.value++,
-	// 		title: form.pcgame2,
-	// 	});
-	// 	reset("game-form");
-	// }
-
-	// if (node.value?.consolegame) {	
-	// 	consolegames.value.push({
-	// 		id: consolegameId.value++,
-	// 		title: form.consolegame,
-	// 	});
-	// 	reset("game-form");
-	// }
-
 
 const handleReset = () => {
 	reset("game-form");
@@ -174,10 +137,6 @@ const highestRankedConsoleGame = computed(() => {
 		return highest.game_title
 	}
 })
-
-// watchEffect(() => {
-// 	findHighestCount()
-// })
 
 onMounted(() => {
 	form.value = getNode("game-form");

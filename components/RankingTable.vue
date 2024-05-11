@@ -78,33 +78,6 @@ const { current, currentPcGames2, currentConsoleGames, remove, updateCount, coun
 
 const user = useUserSession()
 
-const voteCount = ref({})
-
-const handleUpVote = (row: any) => {
-console.log(row)
-
-	const index = currentPcGames2.findIndex((game: any) => game.id === row.id);
-
-	if (index !== -1) {
-		currentPcGames2.value[index].count++
-		voteCount.value = {
-			...voteCount.value,
-			[row.id]: currentPcGames2.value[index].count
-		}	
-	}
-};
-
-const displayVoteCount = (id: number) => {
-	// if (current.value) {
-	// 	return current.value.find((game: any) => game.id === id)?.count || 0
-	// }
-	// if (currentPcGames2.value) {
-	// 	return currentPcGames2.value.find((game: any) => game.id === id)?.count || 0
-	// }
-	if (currentConsoleGames.value) {
-		return currentConsoleGames.value.find((game: any) => game.id === id)?.count || 0
-	}
-}
 
 </script>
 
