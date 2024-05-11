@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-row justify-between mb-5 text-sm"
+    class="flex flex-row justify-between mb-5 text-sm game-form-wrapper"
     data-testid="game-form"
   >
       <div class="flex justify-center" data-testid="game-input">
@@ -85,5 +85,11 @@ defineEmits(['reset'])
 	position: absolute;
 	top: 6px;
 	right: 8px;
+}
+
+@media screen and (max-width: 980px)  {
+	.game-form-wrapper {
+		@apply flex-col items-start;
+	}
 }
 </style>

@@ -83,8 +83,10 @@ const user = useUserSession()
 
 <style lang="postcss">
 	.ranking-table {
+		@apply bg-slate-800 text-white rounded-lg shadow-lg p-1 w-1/3 max-w-[380px];
 		table-layout: fixed;
 		min-width: 300px;
+		margin-bottom: 12px;
 
 		thead th {
 			padding-left: 4px;
@@ -97,5 +99,8 @@ const user = useUserSession()
 		max-width: 300px;
 		word-wrap: break-word !important;
 		overflow: hidden;
-	}
+	p {
+		@apply text-xs;
+	}	
+}
 </style>

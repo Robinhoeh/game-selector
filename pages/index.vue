@@ -1,6 +1,6 @@
 <template>
 	<NuxtLayout>
-		<h1 class="mb-b prose-1">Game Selector</h1>
+		<h1 class="mb-6 text-4xl md:text-6xl">Game Selector</h1>
 		<p class="mb-8">
 			Vote on your favorite games - Winner chosen each month
 		</p>
@@ -10,18 +10,18 @@
 		</section>
 		<section class="p-2 py-8">
 			<h3 class="pb-8">Leader Board</h3>
-			<div class="flex justify-between p-4 border border-red-200 border-dotted">
-				<div class="min-h-36">
+			<div class="p-4 bg-red-300 leader-board-cards">
+				<div class="flex items-center overflow-hidden bg-red-400 border min-h-36">
 					<img src="" alt="" />
-					<p class="w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
+					<p class="text-center w-[300px] break-words">{{ highestRankedPcgame1 || "Top Rated PC game" }}</p>
 				</div>
-				<div class="min-h-36">
+				<div class="flex items-center overflow-hidden bg-red-400 border min-h-36">
 					<img src="" alt="" />
-					<p class="w-[300px] break-words">{{ highestRankedPcgame2 || "Top Rated PC game 2" }}</p>
+					<p class="text-center w-[300px] break-words">{{ highestRankedPcgame2 || "Top Rated PC game 2" }}</p>
 				</div>
-				<div class="min-h-36">
+				<div class="flex items-center overflow-hidden bg-red-400 border min-h-36">
 					<img src="" alt="" />
-					<p class="w-[300px] break-words">{{ highestRankedConsoleGame || 'Top Rated Console game' }}</p>
+					<p class="text-center w-[300px] break-words">{{ highestRankedConsoleGame || 'Top Rated Console game' }}</p>
 				</div>
 			</div>
 		</section>
@@ -36,7 +36,7 @@
 		</section>
 		<section class="py-8 mb-6">
 			<h3>Rankings</h3>
-			<div class="flex justify-between">
+			<div class="ranking-table-wrapper">
 				<RankingTable :loading="isLoading" />
 			</div>
 		</section>
@@ -156,5 +156,25 @@ useHead({
 <style lang="postcss">
 .formkit-wrapper button {
   @apply bg-blue-500 text-white p-3 mt-5;
+}
+
+.leader-board-cards {
+	@apply flex flex-col justify-center items-center;
+}
+
+@media screen and (min-width: 650px) {
+	.leader-board-cards {
+		@apply flex-row;
+	}
+}
+
+.ranking-table-wrapper {
+	@apply flex flex-col max-w-[650px] gap-2;
+}
+
+@media screen and (min-width: 1080px) {
+	.ranking-table-wrapper {
+		@apply flex-row justify-between max-w-full;
+	}
 }
 </style>

@@ -25,7 +25,7 @@ const handleRegistration = async (event) => {
 </script>
 
 <template>
-	<div class="u-max-width-650" style="margin: 0 auto;">
+	<div class="flex justify-center p-8 u-max-width-650 mt-36">
 		<section class="card u-margin-32">
 			<h2 class="eyebrow-heading-2">Login/Register</h2>
 			<AuthForm v-if="isSignUp" :handle-submit="handleRegistration" submit-type="Sign Up"></AuthForm>

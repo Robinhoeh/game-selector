@@ -1,7 +1,7 @@
 <!-- components/authForm.vue -->
 
 <template>
-	<form class="form u-width-full-line u-max-width-500 u-margin-block-start-16" @submit.prevent="handleSubmit">
+	<form class="flex flex-col justify-center p-8 form u-width-full-line u-max-width-500 u-margin-block-start-16" @submit.prevent="handleSubmit">
 		<ul class="form-list">
 			<!-- Input field e-mail -->
 			<li class="form-item">
@@ -20,8 +20,8 @@
 		</ul>
 		<ul class="buttons-list u-margin-block-start-16">
 			<!-- Login button  -->
-			<li class="buttons-list-item">
-				<button class="button is-small u-margin-inline-start-4" aria-label="Login" @click="handleSubmit">
+			<li class="mt-4 buttons-list-item">
+				<button class="p-2 bg-purple-400 w-200px button is-small u-margin-inline-start-4" aria-label="Login" @click="handleSubmit">
 					{{ submitType }}
 				</button>
 			</li>
