@@ -11,6 +11,9 @@ dependencies:
   '@nuxt/ui':
     specifier: ^2.14.1
     version: 2.14.1(nuxt@3.10.0)(vite@5.0.12)(vue@3.4.15)
+  appwrite:
+    specifier: ^14.0.1
+    version: 14.0.1
   date-fns:
     specifier: ^3.3.1
     version: 3.3.1
@@ -2654,6 +2657,15 @@ packages:
 
   /appwrite@13.0.2:
     resolution: {integrity: sha512-ISkUXO8pojDWGx5XqknCwwikgAQye4Ni4FL+Ns8Hg42rXeyehLlmvHGjFOmpS+odT6nsWYUaXzVjV4SZuDorog==}
+    dependencies:
+      cross-fetch: 3.1.5
+      isomorphic-form-data: 2.0.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
+  /appwrite@14.0.1:
+    resolution: {integrity: sha512-ORlvfqVif/2K3qKGgGiGfMP33Zwm+xxB1fIC4Lm3sojOkDd8u8YvgKQO0Meq5UXb8Dc0Rl66Z7qlGBAfRQ04bA==}
     dependencies:
       cross-fetch: 3.1.5
       isomorphic-form-data: 2.0.0
