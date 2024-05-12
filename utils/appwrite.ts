@@ -15,5 +15,5 @@ account.createOAuth2Session(
     OAuthProvider.Google, // provider
     'https://main--videogame-selector.netlify.app', // redirect here on success
     'https://main--videogame-selector.netlify.app/', // redirect here on failure
-[]// scopes (optional)
+['https://www.googleapis.com/auth/userinfo.email']// scopes (optional)
 );
