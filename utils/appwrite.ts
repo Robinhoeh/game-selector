@@ -14,6 +14,6 @@ export const database: Databases = new Databases(client)
 account.createOAuth2Session(
     OAuthProvider.Google, // provider
     'https://main--videogame-selector.netlify.app', // redirect here on success
-    'https://main--videogame-selector.netlify.app/login', // redirect here on failure
+    'https://main--videogame-selector.netlify.app/', // redirect here on failure
 []// scopes (optional)
 );
