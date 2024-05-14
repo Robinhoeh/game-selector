@@ -1,19 +1,20 @@
-import { Client, Databases, Account, OAuthProvider  } from "appwrite"
+import { Client, Account, OAuthProvider } from "appwrite";
 
-const url: string = import.meta.env.VITE_APPWRITE_ENDPOINT
-const project: string = import.meta.env.VITE_APPWRITE_PROJECT
+console.log(OAuthProvider)
+const url = import.meta.env.VITE_APPWRITE_ENDPOINT;
+const project = import.meta.env.VITE_APPWRITE_PROJECT;
 
-const client: Client = new Client()
+const client = new Client();
 
 client
-	.setEndpoint(url).setProject(project)
+    .setEndpoint(url)
+    .setProject(project);
 
-export const account: Account = new Account(client)
-export const database: Databases = new Databases(client)
+export const account = new Account(client);
 
 account.createOAuth2Session(
-    OAuthProvider.Google, // provider
-    'https://main--videogame-selector.netlify.app', // redirect here on success
-    'https://main--videogame-selector.netlify.app/', // redirect here on failure
-['https://www.googleapis.com/auth/userinfo.email']// scopes (optional)
+    OAuthProvider.Google,
+    'https://main--videogame-selector.netlify.app',
+    'https://main--videogame-selector.netlify.app/',
+    ['https://www.googleapis.com/auth/userinfo.email']
 );
