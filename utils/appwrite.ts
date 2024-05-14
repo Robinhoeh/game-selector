@@ -14,7 +14,7 @@ export const account = new Account(client);
 
 account.createOAuth2Session(
     OAuthProvider.Google,
-    'https://main--videogame-selector.netlify.app',
-    'https://main--videogame-selector.netlify.app/',
+    'videogame-selector.netlify.app',
+    'videogame-selector.netlify.app/',
     ['https://www.googleapis.com/auth/userinfo.email']
 );
