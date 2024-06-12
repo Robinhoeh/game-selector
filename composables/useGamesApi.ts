@@ -1,7 +1,6 @@
-import { ID, Query, type Models } from "appwrite"
-import { set } from "date-fns"
-import { is } from "date-fns/locale"
-import { database } from "~/utils/appwrite"
+import { ID, Query, Databases,  type Models } from "appwrite"
+// import { database } from '@/utils/appwrite';
+const database = new Databases(import.meta.env.VITE_APPWRITE_ENDPOINT)
 
 const gamesDatabaseId: string = import.meta.env.VITE_DATABASE_ID
 let gameCollectionId: string = import.meta.env.VITE_COLLECTION_ID
