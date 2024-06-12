@@ -14,6 +14,7 @@ export const account = new Account(client);
 
 account.createOAuth2Session(
     OAuthProvider.Google,
-	'https://cloud.appwrite.io/v1/account/sessions/oauth2/callback/google/660b4ac43ffdd541fbfe',
-	'https://cloud.appwrite.io/v1/account/sessions/oauth2/callback/google/660b4ac43ffdd541fbfe'
+    'https://videogame-selector.netlify.app',
+    'https://videogame-selector.netlify.app/',
+    ['https://www.googleapis.com/auth/userinfo.email']
 );
